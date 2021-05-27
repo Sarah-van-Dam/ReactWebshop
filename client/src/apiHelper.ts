@@ -1,6 +1,6 @@
 
 export type User  = {
-    name: string;
+    customerName: string;
     email: string;
     password: string;
     basket: Product[];

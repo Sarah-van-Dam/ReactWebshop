@@ -13,9 +13,9 @@ export const Basket = () => {
       throw(new Error("ShopContext is undefined!"))
       
    // deconstruct context to get quiz
-   const { currentUser, annoymousBasket } = shopContext;
+   const { isLoggedIn, currentUser, annoymousBasket } = shopContext;
 
-   const basket = currentUser === undefined ? annoymousBasket : currentUser.basket;
+   const basket = isLoggedIn ? currentUser.basket : annoymousBasket;
 
    const removeFromBasket = (tags: string) => {
 
@@ -27,7 +27,7 @@ export const Basket = () => {
         <div className="hero-body container">
             { currentUser === undefined ?
                <h4 className="title">My Basket</h4> :
-               <h4 className="title">{currentUser.name}'s' Basket</h4>
+               <h4 className="title">{currentUser.customerName}'s' Basket</h4>
             }
         </div>
       </div>

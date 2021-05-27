@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, CardDeck, Col, Container, Dropdown, ListGroup, Nav, Row, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { addToBasketAPI, getProductsAPI, Product,  } from '../apiHelper';
+import { Container, Row } from 'react-bootstrap';
+import { getProductsAPI, Product } from '../apiHelper';
 import { ShopContext } from '../App';
 import FilterBar from './FilterBar';
 import LoadingBox from './LoadingBox';
@@ -34,8 +32,9 @@ export const Products = () => {
          setError(e.message);
          setLoading(false);
       })
-
    }, []);
+
+   
 
  return (
     <Container>

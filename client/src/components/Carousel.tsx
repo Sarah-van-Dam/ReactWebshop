@@ -30,7 +30,7 @@ const Carousel = (props: { children: any; }) => {
              <div className="carousel-wrapper">
                 {
                    currentIndex > 0 &&
-                   <button onClick={prev} className="left-arrow">
+                   <button onClick={prev} className="left-arrow" style={{backgroundColor:"lightblue"}}>
                       &lt;
                    </button>
                 }
@@ -41,7 +41,7 @@ const Carousel = (props: { children: any; }) => {
                 </div>
                 {
                    currentIndex < (length - 1) &&
-                   <button onClick={next} className="right-arrow">
+                   <button onClick={next} className="right-arrow" style={{backgroundColor:"lightblue"}}>
                       &gt;
                    </button>
                 }

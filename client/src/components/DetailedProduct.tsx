@@ -1,58 +1,72 @@
-import React from 'react';
-import { Button, Container } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Link, RouteComponentProps, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getProductsAPI, getProductWithIdAPI, Product } from '../apiHelper';
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
 import ProductItem from './ProductItem';
 
+export const DetailedProduct = (props : any) => {
 
-export const DetailedProduct = () => {
-   //const {tags} = useParams()
+   const productID = props.match.params.productID
+   //console.log(productID)
 
-const addToBasket = () => {
-   
-} 
+   const [product, setProduct] = useState<Product>({name:"", price: "", tags: "", description: "", img: ""});
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(false);
 
-const product = {
-   name:"Cosrx - Pure Fit Cica Cream",
-   price:"219 dkk",
-   tags:"new-cosrx-combined-cream-pure-fit-cica",
-   description:"Moisturising face cream that minimizes impurities, redness and acne scars",
-   img:"images/products/cosrx-combined-cream-cosrx_-_pure_fit_cica_cream.jpg"
-}
+   const addToBasket = () => {
+      
+   } 
+
+   useEffect(() => { 
+      setLoading(true);
+      getProductsAPI()
+      .then((data)=> {
+         console.log(data)
+         const currentProduct = data.find((x: Product) => x.tags === productID);
+         setProduct(currentProduct);
+         setLoading(false);
+         console.log(product)
+      }).catch((e) => {
+         setError(e.message);
+         setLoading(false);
+      })
+   },[])
 
  return (
-   <div>
-    <h2>Detailed Product</h2>
-    <div className="container">
-      <div className="row">
-            <div className="col-xs-3 item-photo" style={{maxWidth:"50%"}}>
-               <img id="productImage"  src={product.img} />
-            </div>
-               <div className="col-xs-5" style={{border:"0px solid gray"}}>
-                     <h3 id="productTitle">{product.name}</h3>    
-                     <h4 id="productBrand" style={{color:"#337ab7"}}>{product.name.split("-")[0] }</h4>
+   <Container>
+      <div>
+            {loading ? (<LoadingBox></LoadingBox>)
+            :
+               error? (<MessageBox variant="danger">{error}</MessageBox> )
+            : (
+               <Row>
+                  <Col >
+                     <div className="card">
+                     <img
+                        className="big"
+                        src={product.img}
+                        alt={product.name}
+                     />
+                     {console.log(product.img)}
+                     </div>
+                  </Col>
 
-                     <h4 className="title-price"><small>Price</small></h4>
-                     <h3 id="productPrice" style={{marginTop:"0px"}}> {product.price} </h3>
+                  <Col className="col-1">
+                     <ul>
+                        <li>
+                           <h2>{product.name}</h2>
+                        </li>
+                        <li>
 
-                     <td className="actions">
-
-                     <Link to={"/basket"}><button className="btn btn-lg btn-primary text-uppercase add" onClick={addToBasket}> Buy now </button></Link>
-                     <button onClick={addToBasket} className="btn btn-lg btn-outline-primary text-uppercase add"> <i className="fas fa-shopping-cart"></i> Add to cart </button>                              
-                     </td>
-               </div>                              
-            <div id="descriptionBox" className="col-xs-9">
-               <div style={{width:"100%;"}}>
-                  <p style={{padding:"15px;"}}>
-                        <h4>Description</h4>
-                  </p>
-               </div>
-               <div>
-                  <p id="descriptionText">{product.description}</p>    
-               </div>	
-            </div>     
-       </div>   
-      </div>   
-   </div>   
+                        </li>
+                     </ul>
+                  </Col>
+               </Row>
+            )}
+      </div>
+   </Container>   
  );
 };

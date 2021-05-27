@@ -15,7 +15,7 @@ const  ProductItem = (props: any) => {
     const product = props.product;
     return (
        <div key={product.tags} className="card">
-          <Link to={`/products/${product.tags}`}>
+          <Link to={{pathname:"/products/"+product.tags, state: {product: product.tags} }}>
           <img
              className="product-image medium"
              src={process.env.PUBLIC_URL + product.img}
@@ -23,7 +23,7 @@ const  ProductItem = (props: any) => {
           />
           </Link>
           <div className="card-body">
-             <Link to={`/products/${product.tags}`}>{product.name}</Link>
+             <Link to={{pathname:"/products/"+product.tags, state: {product: product.tags} }}>{product.name}</Link>
              <div className="product-brand">{product.name.split("-")[0] }</div>
              <div className="product-price">{product.price}</div>
              <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px"}} onClick={addToBasket(product.tags)}>Add to basket</button>

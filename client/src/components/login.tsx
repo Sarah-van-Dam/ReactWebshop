@@ -57,8 +57,9 @@ export function Login() {
         checkLoginAPI(email, password)
             .then(response => {
               if(response.ok){
-                  getUserAPI(email).then ((data) => {
-                    updateCurrentUser(data);
+                  getUserAPI(email).then ((user) => {
+                    updateCurrentUser(user);
+                    
                     setValidation(true);
                   })
                   history.push('/home');
