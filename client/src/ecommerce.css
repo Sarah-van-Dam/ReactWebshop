@@ -1,0 +1,127 @@
+/* Make the images to be standardized */
+img {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+  }
+
+  img.medium {
+    max-width: 15rem;
+    width: 100%;
+  }
+
+  img.big {
+    max-width: 25rem;
+    width: 100%;
+  }
+
+  .card{
+    border: 0.1rem #c0c0c0 solid;
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    min-width: 0;
+    max-width: 15rem;
+    word-wrap: break-word;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-body > * {
+    margin-bottom: 0.5rem;
+  }
+
+  
+  /* Add a hover effect (blue shadow) */
+  img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  }
+  
+  figcaption {
+    /* Make the caption a block so it occupies its own line. */
+    display: block;
+    font-size: 12pt;
+    font-family: cursive;
+  }
+  
+  figure {
+    /* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+  }
+  
+  .productdescription {
+    text-align: center;
+    font-size: 18pt;
+    font-family: cursive;
+  }
+  
+  div.list-of-answers {
+    text-align: center;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+    /* align-content: space-between; */
+    text-align: right;
+  }
+
+  .flex-container-filter {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .flex-item {
+    text-decoration: none;
+  }
+  
+  .productcard {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 15rem;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+  }
+  
+  /* Responsive layout - makes a one column layout instead of a two-column layout */
+  @media (max-width: 800px) {
+    .flex-container {
+      flex-direction: column;
+    }
+  }
+  
+  .success {
+    color: #20a020;
+  }
+  
+  .danger {
+    color: #a02020;
+  }
+  
+  .alert {
+    padding: 1rem;
+    border: 0.1rem solid transparent;
+    border-radius:0.5rem;
+  }
+  
+  .alert-info {
+    color: #2020a0;
+    background-color: #e0e0ff;
+  }
+  
+  .alert-danger {
+    color: #a02020;
+    background-color: #ffe0e0e0;
+  }
+

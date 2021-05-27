@@ -1,44 +1,14 @@
 import React from 'react';
-import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import logo from '../assets/images/Pibu-v1_2.png'; 
-import basketLogo from '../assets/images/shopping-basket-2-xxl.png';
-import styled from 'styled-components';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
-import {Products} from './products';
-import {Login} from './login';
-import { Register } from './register';
-import { Basket } from './basket';
-import { Home } from './home';
-
-
-const Styles = styled.div`
-  .navbar { background-color: #222; }
-  a, .navbar-nav, .navbar-light .nav-link {
-    color: black;
-    &:hover { color: grey; }
-  }
-  .navbar-brand {
-    font-size: 1.4em;
-    color: #9FFFCB;
-    &:hover { color: white; }
-  }
-  .form-center {
-    position: absolute !important;
-    left: 25%;
-    right: 25%;
-  }
-`;
-
-
+import { HeaderStyle } from '../styles';
 
 export const Header = () => {
  return (
-    <BrowserRouter>
-        <Styles>
+        <HeaderStyle >
             <Navbar bg="light" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand href="/"> <img src={logo} alt=""></img></Navbar.Brand>
+                <Navbar.Brand href="/"> <img style={{width:"100%", height:"100%"}} src="images/Pibu-v1_2.png" alt=""></img></Navbar.Brand>
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -64,29 +34,13 @@ export const Header = () => {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
-                
-                {/* <Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success" >Search</Button>
-                    </Form>
-                </Nav> */}
-                
-                <Nav className="ml-auto">
-                    <Button variant="light" href="\basket"><img src={basketLogo} alt="" width="30" height="30"/></Button>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/register">Register</Nav.Link>
+
+                <Nav className="ml-auto flex-container" >
+                    <Nav.Link href="\basket"><img src="images/shopping-basket-2-xxl.png" alt="" style={{width: "20%", height:"20%"}}/></Nav.Link>
+                    <Nav.Link className="center" href="/login">Login</Nav.Link>
+                    <Nav.Link className="center"  href="/register">Register</Nav.Link>
                 </Nav>
             </Navbar>
-        </Styles>
-        <Switch>
-                <Route exact path="/products" component={Products} />
-                <Route exact path="/login" component={() => <Login/>} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/basket" component={Basket} />
-                <Route exact path="/home" component={Home} />
-                <Route path="/" component={Home} />
-        </Switch>
-    </BrowserRouter>
+        </HeaderStyle>
  );
 };

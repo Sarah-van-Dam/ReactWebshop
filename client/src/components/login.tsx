@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { checkLoginAPI, getUserAPI } from "../apiHelper";
+import { ShopContext } from "../App";
 
 
 const LoginStyle = styled.div`
@@ -32,9 +34,19 @@ type FormData = {
 
 export function Login() {
     const history = useHistory();
+
+    const  shopContext = useContext(ShopContext)
+    // check conext
+    if (!shopContext)
+    throw(new Error("QuizContext is undefined!"))
+   
+    // deconstruct context to get quiz
+    const { currentUser, updateCurrentUser } = shopContext
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<FormErrors>({});
+    const [validation, setValidation] = useState(true);
   
     function validateForm() {
       return email.length > 0 && password.length > 0;
@@ -42,6 +54,22 @@ export function Login() {
   
     function handleSubmit(event : React.FormEvent) {
       event.preventDefault();
+        checkLoginAPI(email, password)
+            .then(response => {
+              if(response.ok){
+                  getUserAPI(email).then ((data) => {
+                    updateCurrentUser(data);
+                    setValidation(true);
+                  })
+                  history.push('/home');
+              } else {
+                setValidation(false);
+                return false;
+              }
+            }).catch((e) => {
+              setValidation(false);
+              return false;
+            })
     }
 
     const handleInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +127,7 @@ export function Login() {
                     />
                     {errors.password ? <span style={{color: "red"}}>{errors.password}</span> : null}
                 </Form.Group>
+                { !validation && <p style={{color:"red"}}>Your login credentials could not be verified, please try again.</p>}
                 <Button block size="lg" type="submit" disabled={!validateForm()}>
                     Login
                 </Button>
@@ -111,3 +140,4 @@ export function Login() {
         </LoginStyle>
     );
   }
+
