@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductWithIdAPI, Product, removeFromBasketAPI } from '../apiHelper';
 import { ShopContext } from '../App';
@@ -13,19 +13,39 @@ export const Basket = () => {
       throw(new Error("ShopContext is undefined!"))
       
    // deconstruct context to get quiz
-   const { isLoggedIn, currentUser, annoymousBasket } = shopContext;
+   const { isLoggedIn, currentUser, updateCurrentUser, annoymousBasket, updateAnnoymousBasket } = shopContext;
 
-   const basket = isLoggedIn ? currentUser.basket : annoymousBasket;
+   const [basket, updateBasket] = useState<Product[]>([]);
 
-   const removeFromBasket = (tags: string) => {
 
+   useEffect( ()=> {
+    isLoggedIn ? updateBasket(currentUser.basket) : updateBasket(annoymousBasket);
+
+   })
+    
+   const removeFromBasket = (product: Product) => {
+    if (isLoggedIn) {
+      const index = basket.indexOf(product);
+      updateBasket(basket.splice(index, 1))
+      const user = {
+        customerName: currentUser.customerName,
+        email: currentUser.email,
+        password: currentUser.password,
+        basket: basket.splice(index, 1)
+      }
+      updateCurrentUser(user)
+    } else {
+      const index = basket.indexOf(product);
+      updateBasket(basket.splice(index, 1))
+      updateAnnoymousBasket(basket.splice(index, 1))
+    }
    }
 
  return (
    <>
       <div className="hero is-primary">
         <div className="hero-body container">
-            { currentUser === undefined ?
+            { !isLoggedIn ?
                <h4 className="title">My Basket</h4> :
                <h4 className="title">{currentUser.customerName}'s' Basket</h4>
             }
@@ -49,23 +69,24 @@ export const Basket = () => {
                       <div className=" column">
                       <div className="box">
                         <div className="media">
-                          <div className="media-left">
+                          <div className="media-left" >
                             <figure className="image is-64x64">
                               <img
-                                src={product?.img}
-                                alt={product?.name}
+                              className="medium"
+                                src={product.img}
+                                alt={product.name}
                               />
                             </figure>
                           </div>
                           <div className="media-content">
                             <b style={{ textTransform: "capitalize" }}>
-                              {product?.name}{" "}
+                              {product.name}{" "}
                             </b>
-                            <small>{product?.price}</small>
+                            <small>{product.price}</small>
                           </div>
                           <div
                             className="media-right"
-                            onClick={() => removeFromBasket(product.tags)}>
+                            onClick={() => removeFromBasket(product)}>
                             <span className="delete is-large"></span>
                           </div>
                         </div>
@@ -74,12 +95,6 @@ export const Basket = () => {
                     ))}
                     <div className="column is-12 is-clearfix">
                       <br />
-                      <div className="is-pulled-right">
-                        <button
-                          className="button is-success">
-                          Checkout
-                        </button>
-                      </div>
                     </div>
                   </div>
                 ) : (
@@ -95,7 +110,7 @@ export const Basket = () => {
               </tr>
               <tr>
                 <td><Link to={"/home"}> <button className="btn btn-warning text-white"><i className="fa fa-angle-left"></i> Continue Shopping</button></Link></td>
-                <td className="hidden-xs text-center" style={{width:"10%;"}}><strong id="totalPrice"></strong></td>
+                <td className="hidden-xs text-center" style={{width:"10%"}}><strong id="totalPrice"></strong></td>
                 <td><button className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></button></td>
               </tr>
             </tfoot>

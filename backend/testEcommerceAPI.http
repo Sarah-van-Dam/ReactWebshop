@@ -1,0 +1,119 @@
+
+// get all customers
+//GET http://localhost:3000/customers HTTP/1.1
+
+###
+
+//create user
+POST http://localhost:5000/users HTTP/1.1
+content-type: application/json
+
+{"customerName":"Anne Jensen", "email":"anne@gmail.com", "password":"annespassword", "basket": []}
+
+###
+
+
+// get customer by id
+GET http://localhost:5000/users/anne@gmail.com HTTP/1.1
+
+###
+
+// login user
+POST http://localhost:5000/login HTTP/1.1
+content-type: application/json
+
+{"email":"anne@gmail.com", "password": "annespassword"}
+
+
+###
+
+// put item in basket for specific user
+PUT http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
+content-type: application/json
+
+{ 
+ "item": "new-cosrx-combined-cream-pure-fit-cica"
+}
+
+###
+
+// delete item in basket for specific user
+DELETE http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
+content-type: application/json
+
+{ 
+ "item":"new-cosrx-combined-cream-pure-fit-cica"
+}
+
+###
+
+//get basket of specific user
+GET http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
+
+###
+
+// get filtered products
+POST http://localhost:5000/products HTTP/1.1
+content-type: application/json
+
+{ 
+ "categories": [
+  {
+    "Id": "skintype",
+    "types": [
+    #   "combined",
+    #   "dry",
+    #   "oily",
+      "sensitive"
+    ]
+  },
+  {
+    "Id": "producttype",
+    "types": [
+    #   "cleanser",
+    #   "toner",
+    #   "serum",
+    #   "mask",
+      "cream"
+    ]
+  },
+  {
+    "Id": "brand",
+    "types": [
+    #   "cosrx",
+    #   "mizon",
+    #   "dr. jart+",
+    #   "nature republic"
+    ]
+  }
+]
+}
+
+###
+
+// Get products
+GET http://localhost:5000/products HTTP/1.1
+
+###
+
+
+// get product by id
+GET http://localhost:5000/products/new-cosrx-combined-cream-pure-fit-cica HTTP/1.1
+
+###
+
+// get product by category
+GET http://localhost:5000/categories/combined/products HTTP/1.1
+
+###
+
+// get categories
+GET http://localhost:5000/categories HTTP/1.1
+
+###
+
+
+// get categories by id
+GET http://localhost:5000/categories/skintype HTTP/1.1
+
+###

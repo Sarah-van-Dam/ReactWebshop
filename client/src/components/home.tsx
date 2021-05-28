@@ -38,13 +38,6 @@ export const Home = () => {
       }).catch((e) => {
       })
    }, []);
-
-   
-   function getNewProducts() {
-      throw new Error('Function not implemented.');
-   }
-   
-
    
  return (
    <Container>
@@ -55,13 +48,13 @@ export const Home = () => {
       <h2 style={{marginTop:"50px", marginBottom:"20px"}}> New Products </h2>
       <Carousel>
          {newProducts.map((el) => (
-               <Link to={{pathname:"/products/"+el.tags, state: {product: el.tags} }}><img key={el.tags} className="big" src={el.img} alt={el.tags} /></Link>
+               <Link key={el.tags} to={{pathname:"/products/"+el.tags, state: {product: el.tags} }}><img key={el.tags} className="big" src={el.img} alt={el.tags} /></Link>
             ))} 
       </Carousel>
       <h2 style={{marginTop:"50px", marginBottom:"20px"}}>Discounted Products</h2>
       <Carousel>
             {discountProducts.map((el) => (
-               <Link to={{pathname:"/products/"+el.tags, state: {product: el.tags} }}><img key={el.tags} className="big" src={el.img} alt={el.tags} /></Link>
+               <Link key={el.tags} to={{pathname:"/products/"+el.tags, state: {product: el.tags} }}><img key={el.tags} className="big" src={el.img} alt={el.tags} /></Link>
             ))}
       </Carousel>
    </Container>
