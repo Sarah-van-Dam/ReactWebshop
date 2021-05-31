@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { checkLoginAPI, registerUserAPI } from '../apiHelper';
 
 
 const LoginStyle = styled.div`
@@ -17,12 +18,6 @@ const LoginStyle = styled.div`
   }
 `;
 
-type FormData = {
-   userName: string;
-   email: string;
-   password: string;
- }
- 
  type FormErrors = {
    userName?: string;
    email?: string;
@@ -32,20 +27,45 @@ type FormData = {
 
 export const Register = () => {
    const history = useHistory();
-   const navigateToHome = () => history.push('/home');
    const [userName, setUserName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [confirmedPassword, setConfirmdPassword] = useState("");
    const [errors, setErrors] = useState<FormErrors>({});
+   const [validation, setValidation] = useState(true);
+   const [didRegister, updateDidRegister] = useState(false);
  
    function validateForm() {
      return email.length > 0 && password.length > 0;
    }
  
-   function handleSubmit(event : React.FormEvent) {
-     event.preventDefault();
+   useEffect(()=> {
+    if(didRegister) {
+      // console.log(shopContext?.user)
+      // console.log(shopContext?.categories)
+      history.push('/home');
+    }
+  }, [didRegister])
 
+   function handleSubmit(event : React.FormEvent) {
+      event.preventDefault();
+      // Check that user isn't in the system
+      registerUserAPI(userName, email, password)
+      .then(response => {
+        if(response.ok)
+        {
+          updateDidRegister(true);
+          setValidation(true);
+        } else {
+        updateDidRegister(false);
+        setValidation(false);
+        return false;
+      }
+    }).catch((e) => {
+      updateDidRegister(false);
+      setValidation(false);
+      return false;
+    })
    }
 
    const handleInputUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +119,7 @@ export const Register = () => {
       if (value.length < 4) {
         return {confirmedPassword: "The confirmed password must be longer than 4"};
       } 
-      if (password != value) {
+      if (password !== value) {
          return {confirmedPassword : "The confirmed password is not the same as the password"}
       }
       return {confirmedPassword: undefined};
@@ -152,7 +172,8 @@ export const Register = () => {
                />
                {errors.confirmedPassword ? <span style={{color: "red"}}>{errors.confirmedPassword}</span> : null}
            </Form.Group>
-           <Button block size="lg" type="submit" disabled={!validateForm()} onClick={() => checkRegistration()}>
+           { !validation && <p style={{color:"red"}}>The information you gave was already in the database</p>}
+           <Button block size="lg" type="submit" disabled={!validateForm()}>
                Login
            </Button>
            <Button block size="lg" className="btn-secondary" type="cancel" onClick={ () => history.goBack()}>
@@ -165,11 +186,3 @@ export const Register = () => {
  );
 };
 
-function checkRegistration(): void {
-   // Save the user to the database
-
-   // Save the name and email in the context
-   
-
-   throw new Error('Function not implemented.');
-}

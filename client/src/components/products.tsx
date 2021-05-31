@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { getProductsAPI, Product } from '../apiHelper';
-import { ShopContext } from '../App';
+import { ShopContext } from '../ShoppingContext';
 import FilterBar from './FilterBar';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
@@ -15,7 +15,6 @@ export const Products = () => {
   throw(new Error("QuizContext is undefined!"))
   
    // deconstruct context to get quiz
-   const { currentUser, categories, annoymousBasket } = shopContext
 
    const [products, setProducts] = useState<Product[]>([]);
    const [loading, setLoading] = useState(false);

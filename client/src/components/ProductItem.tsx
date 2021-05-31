@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { addToBasketAPI, Product } from '../apiHelper';
-import { ShopContext } from '../App';
+import { ShopContext } from '../ShoppingContext';
 
 const  ProductItem = (props: any) => {
 
@@ -11,28 +11,28 @@ const  ProductItem = (props: any) => {
   throw(new Error("QuizContext is undefined!"))
   
    // deconstruct context to get quiz
-   const { isLoggedIn, currentUser, updateCurrentUser, annoymousBasket, updateAnnoymousBasket } = shopContext
+   const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext
 
    const history = useHistory();
 
     function addToBasket(product: Product, pushToBasket : boolean) {
       if( isLoggedIn ){
-         addToBasketAPI(product.tags, currentUser.email)
-         .then((responce) => {
-            if(responce.ok) {
-               const user = {
-                  customerName: currentUser.customerName, 
-                  email: currentUser.email, 
-                  password: currentUser.password,
-                  basket: currentUser.basket.concat([product])
+         addToBasketAPI(product, user.email)
+         .then((response) => {
+            if(response.ok) {
+               const newUser = {
+                  customerName: user.customerName, 
+                  email: user.email, 
+                  password: user.password,
+                  basket: user.basket.concat([product])
                }
-               updateCurrentUser(user)
+               updateCurrentUser(newUser)
             } else {
                // element could not be added
                return false;
             }
          })} else {
-            updateAnnoymousBasket(annoymousBasket.concat([product]))
+            updateAnnoymousBasket(annonymousBasket.concat([product]))
          }
          if(pushToBasket) {
             history.push("/basket");
@@ -40,26 +40,25 @@ const  ProductItem = (props: any) => {
          return true;
     }
     
-    const buy = (tags: string) => {
-       return undefined;
-    }
- 
     const product = props.product;
     return (
        <div key={product.tags} className="card">
-          <Link to={{pathname:"/products/"+product.tags, state: {product: product.tags} }}>
+          <div onClick={() => history.push({pathname:`/products/${product.tags}`, state: {product: product.tags}})}>
           <img
              className="product-image medium"
              src={`${product.img}`}
              alt={product.name}
           />
-          </Link>
+          </div>
           <div className="card-body">
-             <Link to={{pathname:"/products/"+product.tags, state: {product: product.tags} }}>{product.name}</Link>
+             <div onClick={() => history.push({pathname:`/products/${product.tags}`, state: {product: product.tags}})}>{product.name}</div>
              <div className="product-brand">{product.name.split("-")[0] }</div>
              <div className="product-price">{product.price}</div>
-             <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px"}} onClick={() => addToBasket(product, false)}>Add to basket</button>
-             <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px"}} onClick={() => addToBasket(product, true)}>Buy</button>
+             <div>
+             <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px", backgroundColor:"LightGreen", color:"black"}} onClick={() => addToBasket(product, false)}>Add to basket</button>
+             <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px", backgroundColor:"LightSeaGreen", color:"black"}} onClick={() => addToBasket(product, true)}>Buy</button>
+             </div>
+             
           </div>
  
        </div>

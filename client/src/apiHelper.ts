@@ -1,4 +1,9 @@
 
+export type Basket = {
+  product : Product;
+  quantity: number;
+}
+
 export type User  = {
     customerName: string;
     email: string;
@@ -43,7 +48,7 @@ export async function registerUserAPI(name: string, email: string, password: str
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({name: name, email:email, password: password, basket: []})
+      body: JSON.stringify({customerName: name, email:email, password: password, basket: []})
     });
     return response;
 }
@@ -76,28 +81,28 @@ export async function getBasketAPI(email: string) {
 
 
 // call .delete("/users/:email/basket", deleteItemFromBasket);
-export async function removeFromBasketAPI(itemTags: string, userEmail: string) { 
+export async function removeFromBasketAPI(product: Product, userEmail: string) { 
   const response = await fetch(rootURL+"users/"+ userEmail + "/basket", {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({item : itemTags})
+      body: JSON.stringify(product)
     });
     return response;
 }
 
 
 // call .put("/users/:email/basket", putItemInBasket);
-export async function addToBasketAPI(itemTags: string, userEmail: string) { 
+export async function addToBasketAPI(product: Product, userEmail: string) { 
   const response = await fetch(rootURL+"users/"+ userEmail + "/basket", {
       method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({item : itemTags})
+      body: JSON.stringify(product)
     });
     return response;
 }

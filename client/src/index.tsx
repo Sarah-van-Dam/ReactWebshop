@@ -5,10 +5,13 @@ import './index.css';
 import './ecommerce.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ShopContextProvider} from './ShoppingContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ShopContextProvider>
+     <App />
+    </ShopContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

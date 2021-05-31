@@ -4,8 +4,8 @@ import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { checkLoginAPI, getUserAPI } from "../apiHelper";
-import { ShopContext } from "../App";
+import { checkLoginAPI, getUserAPI, User } from "../apiHelper";
+import { ShopContext } from '../ShoppingContext';
 
 
 const LoginStyle = styled.div`
@@ -20,12 +20,6 @@ const LoginStyle = styled.div`
     }
   }
 `;
-
-
-type FormData = {
-    quizId: string;
-    quizName: string;
-  }
   
   type FormErrors = {
     email?: string;
@@ -41,28 +35,36 @@ export function Login() {
     throw(new Error("QuizContext is undefined!"))
    
     // deconstruct context to get quiz
-    const { currentUser, updateCurrentUser } = shopContext
+    const { isLoggedIn, user, updateCurrentUser, updateLoggedIn } = shopContext
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<FormErrors>({});
     const [validation, setValidation] = useState(true);
+
   
     function validateForm() {
       return email.length > 0 && password.length > 0;
     }
   
+    useEffect(()=> {
+      if(isLoggedIn) {
+        // console.log(shopContext?.user)
+        // console.log(shopContext?.categories)
+        history.push('/home');
+      }
+    }, [isLoggedIn])
+
     function handleSubmit(event : React.FormEvent) {
       event.preventDefault();
         checkLoginAPI(email, password)
             .then(response => {
               if(response.ok){
-                  getUserAPI(email).then ((user) => {
-                    updateCurrentUser(user);
-                    
+                  getUserAPI(email).then ((newUser : User) => {
+                    updateCurrentUser(newUser)
+                    updateLoggedIn(true)
                     setValidation(true);
                   })
-                  history.push('/home');
               } else {
                 setValidation(false);
                 return false;

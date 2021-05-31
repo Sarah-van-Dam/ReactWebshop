@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import { Link, RouteComponentProps, useLocation, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { useContext, useEffect, useState } from 'react';
+import { Button, Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { getProductWithIdAPI, addToBasketAPI, Product } from '../apiHelper';
-import { ShopContext } from '../App';
-import { Basket } from './Basket';
+import { ShopContext } from '../ShoppingContext';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import ProductItem from './ProductItem';
 
 export const DetailedProduct = (props : any) => {
 
@@ -17,13 +14,11 @@ export const DetailedProduct = (props : any) => {
   throw(new Error("QuizContext is undefined!"))
   
    // deconstruct context to get quiz
-   const { isLoggedIn, currentUser, updateCurrentUser, annoymousBasket, updateAnnoymousBasket } = shopContext
+   const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext
 
+   const history = useHistory()
 
    const productID : string = props.match.params.productID
-   //console.log(productID)
-   const dummy : Product = {name: "", price: "", tags: "", img: "", description: ""};
-   //console.log(productID)
 
    const [product, setProduct] = useState<Product>({name: "", price: "", tags: "", img: "", description: ""});
    const [loading, setLoading] = useState(false);
@@ -31,23 +26,26 @@ export const DetailedProduct = (props : any) => {
 
    const addToBasket = () => {
       if( isLoggedIn ){
-         addToBasketAPI(product.tags, currentUser.email)
-         .then((responce) => {
-            if(responce.ok) {
-               const user = {
-                  customerName: currentUser.customerName, 
-                  email: currentUser.email, 
-                  password: currentUser.password,
-                  basket: currentUser.basket.concat([product])
+         addToBasketAPI(product, user.email)
+         .then((response) => {
+            if(response.ok) {
+               const newUser = {
+                  customerName: user.customerName, 
+                  email: user.email, 
+                  password: user.password,
+                  basket: user.basket.concat([product])
                }
-               updateCurrentUser(user)
+               updateCurrentUser(newUser)
             } else {
                // element could not be added
             }
-         })} else {
-            annoymousBasket.push(product)
-         }
+         })
+      } 
+      else 
+      {
+            updateAnnoymousBasket(annonymousBasket.concat([product]));
       }
+   }
       
 
    useEffect(() => { 
@@ -56,12 +54,12 @@ export const DetailedProduct = (props : any) => {
       .then((data)=> {
          setLoading(false);
          setProduct(data);
-         console.log(product)
+         // console.log(product)
       }).catch((e) => {
          setError(e.message);
          setLoading(false);
       })
-   },[])
+   },[productID])
 
  return (
    <Container>
@@ -73,7 +71,7 @@ export const DetailedProduct = (props : any) => {
                <div>
                   <div>
                      <div style={{textAlign:"left"}}>
-                     <Link to="/products"> <Button style={{ backgroundColor:"grey", margin:"8px 4px 8px 4px"}} className="primary block">Back to products</Button></Link>
+                     <div onClick={()=> history.push("/products")}> <Button style={{ backgroundColor:"grey", margin:"8px 4px 8px 4px"}} className="primary block">Go to products</Button></div>
                      </div>
                      <div key={product?.tags} style={{display: "flex"}} className="row">
                               <div className="column" style={{flex: "50%"}}>
@@ -97,7 +95,7 @@ export const DetailedProduct = (props : any) => {
                                        <p>{product.description }</p>
                                     </li>
                                     <li style={{marginTop:"1rem"}}>
-                                       <Button className="primary block" onClick={()=> addToBasket}>Add to basket</Button>
+                                       <Button className="primary block" onClick={addToBasket}>Add to basket</Button>
                                     </li>
                                  </ul>
                               </div> 

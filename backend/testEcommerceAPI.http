@@ -32,8 +32,12 @@ PUT http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
 content-type: application/json
 
 { 
- "item": "new-cosrx-combined-cream-pure-fit-cica"
-}
+  "name":"Cosrx - Hydrium Triple Hyaluronic Moisturizing Cleanser",
+  "price":"169 dkk",
+  "tags":"cosrx-dry-cleanser-hydrium-triple-hyaluronic-moisturizing",
+  "description":"Description here",
+  "img":"/images/products/cosrx-dry-cleaner-cosrx_-_hydrium_triple_hyaluronic_moisturizing_cleanser.jpg"
+ }
 
 ###
 
@@ -42,8 +46,12 @@ DELETE http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
 content-type: application/json
 
 { 
- "item":"new-cosrx-combined-cream-pure-fit-cica"
-}
+  "name":"Cosrx - Hydrium Triple Hyaluronic Moisturizing Cleanser",
+  "price":"169 dkk",
+  "tags":"cosrx-dry-cleanser-hydrium-triple-hyaluronic-moisturizing",
+  "description":"Description here",
+  "img":"/images/products/cosrx-dry-cleaner-cosrx_-_hydrium_triple_hyaluronic_moisturizing_cleanser.jpg"
+ }
 
 ###
 

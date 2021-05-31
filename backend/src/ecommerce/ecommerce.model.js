@@ -184,7 +184,7 @@ export async function addUser(newUser) {
       `User with Id:${newUser.email} already exists`
     );
     users.push(newUser);
-  await save(users);
+  await save(itemArray);
 }
 
 // // update existing item
@@ -211,7 +211,7 @@ export async function putItemInBasket(email, item) {
     throw new Error(`Customer with ID:${email} doesn't exist`);
   else {
     console.log(item)
-    users[index].basket.push(item.item);
+    users[index].basket.push(item);
     await save(itemArray);
   }
 }
@@ -225,11 +225,16 @@ export async function deleteItemFromBasket(email, item) {
     throw new Error(`Customer with ID:${email} doesn't exist`);
   else {
     let basket = users[index].basket;
-    let i = basket.indexOf(item.item);
-    if(i === -1){
+    let indexToRemove = -1;
+    for (let index = 0; index < basket.length; index++) {
+      if(basket[index].tags === item.tags) {
+        indexToRemove = index;
+      }
+    }
+    if(indexToRemove === -1){
       throw new Error(`Deleting item: ${item}, which isn't in the user's basket (${email})`)
     } 
-    basket.splice(i, 1);
+    basket.splice(indexToRemove, 1);
     await save(itemArray);
   }
 }
