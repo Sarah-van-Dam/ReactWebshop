@@ -87,8 +87,9 @@ export const Basket = () => {
           <ul>
               {basket.map((item, index) => (
                 <li key={item.tags + " "+ index.toString()} style={{listStyleType:"none"}}>
-                  <Row className="row" style={{ msFlexDirection:"row", flexBasis:"content center"}}>
-                    <Col className="col image is-64x64" onClick={() => history.push({pathname:`/products/${item.tags}`, state: {product: item.tags}})}>
+                  <Row className="row" style={{ msFlexDirection:"row", flexBasis:"content center", border: "0.1rem #c0c0c0 solid", backgroundColor: "#f8f8f8",
+                    borderRadius: "0.5rem", margin: "1rem", minHeight:"10rem", flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <Col className="col is-64x64" onClick={() => history.push({pathname:`/products/${item.tags}`, state: {product: item.tags}})}>
                       <img
                         src={item.img}
                         alt={item.name}
@@ -106,7 +107,7 @@ export const Basket = () => {
                     <Col className="col">
                       <button
                         className="btn btn-success"
-                        style={{backgroundColor:"MediumTurquoise", borderColor:"white"}}
+                        style={{backgroundColor:"MediumTurquoise", borderColor:"white", textAlign: "center"}}
                         type="button"
                         onClick={() => removeFromBasket(item)}>
                         Delete
