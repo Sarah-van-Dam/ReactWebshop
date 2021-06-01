@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkLoginAPI, registerUserAPI } from '../apiHelper';
+import { registerUserAPI } from '../apiHelper';
 
 
 const LoginStyle = styled.div`
@@ -19,15 +19,17 @@ const LoginStyle = styled.div`
 `;
 
  type FormErrors = {
-   userName?: string;
-   email?: string;
-   password?: string;
-   confirmedPassword?: string;
+    userFirstName?: string;
+    userFamilyName?: string;
+    email?: string;
+    password?: string;
+    confirmedPassword?: string;
  }
 
 export const Register = () => {
    const history = useHistory();
-   const [userName, setUserName] = useState("");
+   const [userFirstName, setUserFirstName] = useState("");
+   const [userFamilyName, setUserFamilyName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [confirmedPassword, setConfirmdPassword] = useState("");
@@ -36,7 +38,12 @@ export const Register = () => {
    const [didRegister, updateDidRegister] = useState(false);
  
    function validateForm() {
-     return email.length > 0 && password.length > 0;
+    const regEmail : RegExp = /^[a-zA-z]+@[a-z]+.[a-z]+$/;
+     return userFirstName.length > 2 
+            && userFamilyName.length > 2
+            && regEmail.test(email) 
+            && password.length > 4
+            && confirmedPassword.length > 4 ;
    }
  
    useEffect(()=> {
@@ -50,7 +57,7 @@ export const Register = () => {
    function handleSubmit(event : React.FormEvent) {
       event.preventDefault();
       // Check that user isn't in the system
-      registerUserAPI(userName, email, password)
+      registerUserAPI(userFirstName+ " " + userFamilyName, email, password)
       .then(response => {
         if(response.ok)
         {
@@ -68,18 +75,31 @@ export const Register = () => {
     })
    }
 
-   const handleInputUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handleInputUserFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
-       setUserName(e.target.value);
-       setErrors((prev) =>({ ...prev, ...validateUserName(value) }))
+      setUserFirstName(e.target.value);
+      setErrors((prev) =>({ ...prev, ...validateUserFirstName(value) }))
    }
 
-   const validateUserName = (value: string) : FormErrors => {
+   const validateUserFirstName = (value: string) : FormErrors => {
+    if(value.length < 2) {
+      return {userFirstName: "The user's first name must be more that 2 characters"};
+    }
+    return {userFirstName: undefined};
+    }  
+
+   const handleInputUserFamilyName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setUserFamilyName(e.target.value);
+    setErrors((prev) =>({ ...prev, ...validateUserFamilyName(value) }))
+    }
+
+   const validateUserFamilyName = (value: string) : FormErrors => {
       if(value.length < 2) {
-        return {userName: "The user name must be more that 2 characters"};
+        return {userFamilyName: "The user's family name must be more that 2 characters"};
       }
-      return {userName: undefined};
-  }  
+      return {userFamilyName: undefined};
+    }  
 
    const handleInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
        const value = e.target.value;
@@ -134,15 +154,25 @@ export const Register = () => {
            <p>
                Please enter your name, email, and password to register for a Pibu care account.
            </p>  <hr></hr>
-           <Form.Group className="lg" controlId="name">
-               <Form.Label >Name</Form.Label>
+           <Form.Group className="lg" controlId="firstName">
+               <Form.Label >First name</Form.Label>
                <Form.Control
                autoFocus
                type="text"
-               value={userName}
-               onChange={handleInputUserName}
+               value={userFirstName}
+               onChange={handleInputUserFirstName}
                />
-               {errors.userName ? <span style={{color: "red"}}>{errors.userName}</span> : null}
+               {errors.userFirstName ? <span style={{color: "red"}}>{errors.userFirstName}</span> : null}
+           </Form.Group>
+           <Form.Group className="lg" controlId="familyName">
+               <Form.Label >Family name</Form.Label>
+               <Form.Control
+               autoFocus
+               type="text"
+               value={userFamilyName}
+               onChange={handleInputUserFamilyName}
+               />
+               {errors.userFamilyName ? <span style={{color: "red"}}>{errors.userFamilyName}</span> : null}
            </Form.Group>
            <Form.Group className="lg" controlId="email">
                <Form.Label >Email</Form.Label>

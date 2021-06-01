@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link , useHistory} from 'react-router-dom';
-import { forEachChild } from 'typescript';
+import { useHistory} from 'react-router-dom';
 import { Product, removeFromBasketAPI } from '../apiHelper';
 import { ShopContext } from '../ShoppingContext';
 import MessageBox from './MessageBox';
@@ -18,7 +17,7 @@ export const Basket = () => {
    const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext;
 
    const [basket, updateBasket] = useState<Product[]>([]);
-   const [sum, updateSum] = useState<number>(0);
+   //const [sum, updateSum] = useState<number>(0);
 
    const [error, setError] = useState("");
 
@@ -35,7 +34,7 @@ export const Basket = () => {
     //   runningSum = runningSum + parseInt(item.price.split(" ")[0]);
     // })
     //updateSum(runningSum)
-   }, [user.basket, annonymousBasket])
+   }, [user.basket, annonymousBasket, isLoggedIn])
     
    const removeFromBasket = (product: Product) => {
     let index = basket.findIndex(o => o.tags === product.tags);
@@ -55,6 +54,7 @@ export const Basket = () => {
             //updateSum((prev) => prev - parseInt(product.price.split(" ")[0]))
          } else {
             // element could not be added
+            setError(`Product ${product.name} could not be removed`);
             return false;
          }
       })

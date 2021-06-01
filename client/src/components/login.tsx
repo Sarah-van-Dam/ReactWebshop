@@ -35,7 +35,7 @@ export function Login() {
     throw(new Error("QuizContext is undefined!"))
    
     // deconstruct context to get quiz
-    const { isLoggedIn, user, updateCurrentUser, updateLoggedIn } = shopContext
+    const { isLoggedIn, updateCurrentUser, updateLoggedIn } = shopContext
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
