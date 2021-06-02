@@ -1,16 +1,17 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { addToBasketAPI, Product } from '../apiHelper';
-import { ShopContext } from '../ShoppingContext';
+import { addToBasketAPI } from '../../api/apiHelper';
+import { Product } from '../../api/Product';
+import { ShopContext } from '../../context/ShoppingContext';
 
 const  ProductItem = (props: any) => {
 
    const  shopContext = useContext(ShopContext)
-   // check conext
+   // check context
   if (!shopContext)
-  throw(new Error("QuizContext is undefined!"))
+  throw(new Error("ShopContext is undefined!"))
   
-   // deconstruct context to get quiz
+   // deconstruct context to get shop
    const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext
 
    const history = useHistory();

@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState} from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { ShopContext } from '../ShoppingContext';
-import { getProductsByCategoryAPI, Product } from '../apiHelper';
+import { ShopContext } from '../../context/ShoppingContext';
+import { getProductsByCategoryAPI } from '../../api/apiHelper';
+import { Product } from "../../api/Product";
 import Carousel from './Carousel';
 
 

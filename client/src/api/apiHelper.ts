@@ -1,28 +1,5 @@
-
-export type Basket = {
-  product : Product;
-  quantity: number;
-}
-
-export type User  = {
-    customerName: string;
-    email: string;
-    password: string;
-    basket: Product[];
-}
-
-export type Product = {
-    name: string;
-    price: string;
-    tags: string;
-    description: string;
-    img: string;
-}
-
-export type Category = {
-    Id: string;
-    types: string[];
-}
+import { Category } from "./Category";
+import { Product } from "./Product";
 
 // Root URL
 const rootURL = "http://localhost:5000/"
@@ -132,7 +109,7 @@ export async function postFilteredProductsAPI(categories: Category[]) {
       },
       body: JSON.stringify({categories : categories})
     });
-    return response;
+    return response.json();
 }
 
 // call .get("/products/:tags", getProductById);

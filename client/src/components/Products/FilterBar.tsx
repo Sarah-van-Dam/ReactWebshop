@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Category } from '../apiHelper';
-import { ShopContext } from '../ShoppingContext';
+import { useContext, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { Category } from "../../api/Category";
+import { ShopContext } from '../../context/ShoppingContext';
 
 const filterBarStyle = {
     display: 'flex',
@@ -14,9 +14,9 @@ const filterBarStyle = {
    const  shopContext = useContext(ShopContext)
    // check conext
   if (!shopContext)
-  throw(new Error("QuizContext is undefined!"))
+  throw(new Error("shopContext is undefined!"))
   
-   // deconstruct context to get quiz
+   // deconstruct context to get shop
    const { categories } = shopContext
    const [filter, updateFilter] = useState<Category[]>([{Id:"skintype", types: []}, {Id:"producttype", types: []}, {Id:"brand", types: []}]);
 
@@ -42,40 +42,6 @@ const filterBarStyle = {
  
     return (
          <div style={filterBarStyle} >
-             {/* <Dropdown style={{margin:"8px 4px 8px 4px"}}>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                   Product Type
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                   <Dropdown.Item onClick={filter_products("cleanser")}>Cleanser</Dropdown.Item>
-                   <Dropdown.Item onClick={filter_products("toner")}>Toner</Dropdown.Item>
-                   <Dropdown.Item onClick={filter_products("serum")}>Serum</Dropdown.Item>
-                   <Dropdown.Item onClick={filter_products("mask")}>Mask</Dropdown.Item>
-                   <Dropdown.Item onClick={filter_products("cream")}>Cream</Dropdown.Item>
-                </Dropdown.Menu>
-             </Dropdown>
-             <Dropdown style={{margin:"8px 4px 8px 4px"}}>
-                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      Skin Type
-                   </Dropdown.Toggle>
-                   <Dropdown.Menu>
-                      <Dropdown.Item onClick={filter_products("dry")}>Dry</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("oily")}>Oily</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("combined")}>Combined</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("sensitive")}>Sensitive</Dropdown.Item>
-                   </Dropdown.Menu>
-                </Dropdown>
-             <Dropdown style={{margin:"8px 4px 8px 4px"}}>
-                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      Brand
-                   </Dropdown.Toggle>
-                   <Dropdown.Menu>
-                      <Dropdown.Item onClick={filter_products("cosrx")}>CosRX</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("dr. jart+")}>Dr. Jart+</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("mizon")}>Mizon</Dropdown.Item>
-                      <Dropdown.Item onClick={filter_products("nature republic")}>Nature Republic</Dropdown.Item>
-                   </Dropdown.Menu>
-                </Dropdown> */}
                <div className="card" style={{maxWidth:"60rem"}}>
                 <Row>
                   <Col style={{width:"80%"}}>

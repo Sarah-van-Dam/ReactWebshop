@@ -1,17 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { getProductWithIdAPI, addToBasketAPI, Product } from '../apiHelper';
-import { ShopContext } from '../ShoppingContext';
-import LoadingBox from './LoadingBox';
-import MessageBox from './MessageBox';
+import { getProductWithIdAPI, addToBasketAPI } from '../../api/apiHelper';
+import { Product } from "../../api/Product";
+import { ShopContext } from '../../context/ShoppingContext';
+import LoadingBox from '../shared/LoadingBox';
+import MessageBox from '../shared/MessageBox';
 
 export const DetailedProduct = (props : any) => {
 
    const  shopContext = useContext(ShopContext)
    // check conext
   if (!shopContext)
-  throw(new Error("QuizContext is undefined!"))
+  throw(new Error("ShopContext is undefined!"))
   
    // deconstruct context to get quiz
    const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext

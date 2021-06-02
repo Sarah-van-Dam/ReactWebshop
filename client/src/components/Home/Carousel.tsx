@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { CarouselStyle } from '../styles';
+import { useEffect, useState } from 'react';
+import { CarouselStyle } from '../../styles/styles';
 
 const Carousel = (props: { children: any; }) => {
     const {children} = props

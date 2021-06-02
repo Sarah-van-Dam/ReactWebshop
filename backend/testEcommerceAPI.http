@@ -60,7 +60,7 @@ GET http://localhost:5000/users/anne@gmail.com/basket HTTP/1.1
 
 ###
 
-// get filtered products
+// filter products
 POST http://localhost:5000/products HTTP/1.1
 content-type: application/json
 

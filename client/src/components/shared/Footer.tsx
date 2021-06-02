@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-export const FullRowStyle = styled.div`
+const FullRowStyle = styled.div`
 .row-full{
     width: 100vw;
     position: relative;

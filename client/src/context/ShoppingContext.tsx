@@ -1,5 +1,8 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Category, getCategoriesAPI, Product, User } from "./apiHelper";
+import { getCategoriesAPI } from "../api/apiHelper";
+import { Category } from "../api/Category";
+import { Product } from "../api/Product";
+import { User } from "../api/types/User";
 
 export type ShopContextType = {
     isLoggedIn: boolean;
@@ -9,6 +12,9 @@ export type ShopContextType = {
     categories: Category[];
     annonymousBasket: Product[];
     updateAnnoymousBasket: (basket : Product[]) => void;
+    filterCategories: Category[];
+    setFilterCategories: (categories: Category[]) => void;
+    isFilterSet: () => boolean;
 }
 
 type ContextPropType = {
@@ -23,6 +29,7 @@ export const ShopContextProvider = (props : ContextPropType) => {
     const [user, updateUserState] = useState<User>({customerName: "", email: "", password: "", basket: []})
     const [annonymousBasket, updateAnnoymousBasketState] = useState<Product[]>([])
     const [isLoggedIn, updateLoggedInState] = useState<boolean>(false)
+    const [filterCategories, setFilterCategories] = useState<Category[]>([{Id: "skintype", types:[]}, {Id: "producttype", types:[]}, {Id: "brand", types:[]} ]);
 
     useEffect( () => {
         getCategoriesAPI()
@@ -50,9 +57,13 @@ export const ShopContextProvider = (props : ContextPropType) => {
         updateLoggedInState(loggedIn);
     }
 
+    const isFilterSet = () => {
+        return filterCategories.some((item, idx) => item.types.length > 0);
+    }
+
     return (
         <ShopContext.Provider value= {{isLoggedIn, updateLoggedIn, user, updateCurrentUser, 
-            categories, annonymousBasket, updateAnnoymousBasket}}>
+            categories, annonymousBasket, updateAnnoymousBasket, filterCategories, setFilterCategories, isFilterSet}}>
                 {props.children}
         </ShopContext.Provider>
     )

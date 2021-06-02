@@ -1,13 +1,13 @@
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Header } from './components/Header';
-import { Products } from './components/Products';
-import { DetailedProduct } from './components/DetailedProduct';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
-import { Basket } from './components/Basket';
-import { Footer } from './components/Footer';
-import { Home } from './components/Home';
+import { Products } from './components/Products/Products';
+import { DetailedProduct } from './components/DetailedProduct/DetailedProduct';
+import { Login } from './components/Login/Login';
+import { Register } from './components/Register/Register';
+import { Basket } from './components/Basket/Basket';
+import { Home } from './components/Home/Home';
+import { Header } from './components/shared/Header';
+import { Footer } from './components/shared/Footer';
 
 
 export const App = () => {

@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './ecommerce.css';
+import './styles/index.css';
+import './styles/ecommerce.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ShopContextProvider} from './ShoppingContext'
+import { ShopContextProvider } from './context/ShoppingContext';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { checkLoginAPI, getUserAPI, User } from "../apiHelper";
-import { ShopContext } from '../ShoppingContext';
+import { checkLoginAPI, getUserAPI } from "../../api/apiHelper";
+import { ShopContext } from '../../context/ShoppingContext';
+import { User } from "../../api/types/User";
 
 
 const LoginStyle = styled.div`
