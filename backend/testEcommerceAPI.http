@@ -69,10 +69,10 @@ content-type: application/json
   {
     "Id": "skintype",
     "types": [
-    #   "combined",
+       "combined"
     #   "dry",
     #   "oily",
-      "sensitive"
+    #  "sensitive"
     ]
   },
   {
@@ -80,16 +80,16 @@ content-type: application/json
     "types": [
     #   "cleanser",
     #   "toner",
-    #   "serum",
-    #   "mask",
+       "serum",
+       "mask",
       "cream"
     ]
   },
   {
     "Id": "brand",
     "types": [
-    #   "cosrx",
-    #   "mizon",
+       "cosrx",
+       "mizon"
     #   "dr. jart+",
     #   "nature republic"
     ]
