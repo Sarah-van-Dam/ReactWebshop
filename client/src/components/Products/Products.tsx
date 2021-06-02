@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { getProductsAPI, postFilteredProductsAPI } from '../../api/apiHelper';
+import { getProductsAPI, postFilteredProductsAPI } from "../../api/productAPI";
 import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
 import FilterBar from './FilterBar';

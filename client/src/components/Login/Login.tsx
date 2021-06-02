@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { checkLoginAPI, getUserAPI } from "../../api/apiHelper";
+import { checkLoginAPI, getUserAPI } from "../../api/userAPI";
 import { ShopContext } from '../../context/ShoppingContext';
 import { User } from "../../api/types/User";
 

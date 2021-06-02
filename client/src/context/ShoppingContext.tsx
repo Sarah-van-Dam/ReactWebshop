@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { getCategoriesAPI } from "../api/apiHelper";
+import { getCategoriesAPI } from "../api/categoryAPI";
 import { Category } from "../api/Category";
 import { Product } from "../api/Product";
 import { User } from "../api/types/User";

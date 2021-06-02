@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { addToBasketAPI } from '../../api/apiHelper';
+import { addToBasketAPI } from '../../api/userAPI';
 import { Product } from '../../api/Product';
 import { ShopContext } from '../../context/ShoppingContext';
 

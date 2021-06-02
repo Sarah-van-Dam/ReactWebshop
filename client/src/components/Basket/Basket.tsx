@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useHistory} from 'react-router-dom';
-import { removeFromBasketAPI } from '../../api/apiHelper';
+import { removeFromBasketAPI } from '../../api/userAPI';
 import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
 import MessageBox from '../shared/MessageBox';

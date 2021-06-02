@@ -1,8 +1,7 @@
-import { Category } from "./Category";
 import { Product } from "./Product";
 
 // Root URL
-const rootURL = "http://localhost:5000/"
+export const rootURL = "http://localhost:5000/"
 
 // call post("/login/", postLoginUser);
 export async function checkLoginAPI(email: string, password: string) { 
@@ -86,64 +85,4 @@ export async function addToBasketAPI(product: Product, userEmail: string) {
 
 
 
-// call .get("/products/", getProducts);
-//export const getProducts = () => {}
-export async function getProductsAPI() {
-    const response = await fetch(rootURL+"products", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
 
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-
-// .post("/products", postFilteredProducts());
-export async function postFilteredProductsAPI(categories: Category[]) { 
-  const response = await fetch(rootURL+"products", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({categories : categories})
-    });
-    return response.json();
-}
-
-// call .get("/products/:tags", getProductById);
-export async function getProductWithIdAPI(tags: string) {
-  const response = await fetch(rootURL+"products/"+tags, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
-
-// call .get("/categories/:categoryId/products", getProductByCategory);
-export async function getProductsByCategoryAPI(category: string) {
-  const response = await fetch(rootURL+"categories/" + category + "/products", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
-
-// call .get("/categories/", getCategories);
-export async function getCategoriesAPI() {
-    const response = await fetch(rootURL+"categories", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-  
-      });
-      return response.json(); // parses JSON response into native JavaScript objects
-  }
-
-// .get("/categories/:categoryId/subcategories", getCategoryById); For getting subcategories 

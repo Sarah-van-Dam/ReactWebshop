@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { registerUserAPI } from '../../api/apiHelper';
+import { registerUserAPI } from '../../api/userAPI';
 
 
 const LoginStyle = styled.div`

@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { getProductWithIdAPI, addToBasketAPI } from '../../api/apiHelper';
+import { addToBasketAPI } from '../../api/userAPI';
+import { getProductWithIdAPI } from "../../api/productAPI";
 import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
 import LoadingBox from '../shared/LoadingBox';
