@@ -82,8 +82,11 @@ export const Register = () => {
    }
 
    const validateUserFirstName = (value: string) : FormErrors => {
+    const regName : RegExp = /^[\D]+$/;
     if(value.length < 2) {
       return {userFirstName: "The user's first name must be more that 2 characters"};
+    } else if(!regName.test(value)) {
+      return {userFirstName: "The user's first name can only contain characters"};
     }
     return {userFirstName: undefined};
     }  
@@ -95,8 +98,11 @@ export const Register = () => {
     }
 
    const validateUserFamilyName = (value: string) : FormErrors => {
+    const regName : RegExp = /^[\D]+$/;
       if(value.length < 2) {
         return {userFamilyName: "The user's family name must be more that 2 characters"};
+      } else if(!regName.test(value)) {
+        return {userFamilyName: "The user's family name can only contain characters"};
       }
       return {userFamilyName: undefined};
     }  

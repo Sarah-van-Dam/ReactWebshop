@@ -24,17 +24,17 @@ ecommerceRouter.delete("/users/:email/basket", deleteItemFromBasket);
 
 ecommerceRouter.get("/users/:email/basket", getBasket);
 
-ecommerceRouter.post("/login/", postLoginUser);
+ecommerceRouter.post("/login", postLoginUser);
 
-ecommerceRouter.get("/products/", getProducts);
+ecommerceRouter.get("/products", getProducts);
 
-ecommerceRouter.post("/products/", postFilteredProducts);
+ecommerceRouter.post("/products", postFilteredProducts);
 
 ecommerceRouter.get("/products/:tags", getProductById);
 
 ecommerceRouter.get("/categories/:categoryId/products", getProductByCategory);
 
-ecommerceRouter.get("/categories/", getCategories);
+ecommerceRouter.get("/categories", getCategories);
 
 ecommerceRouter.get("/categories/:categoryId", getCategoryById);
 

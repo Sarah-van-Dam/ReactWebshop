@@ -70,7 +70,7 @@ export async function getUserByID(itemId) {
   let users = itemArray.users;
   let index = findUser(users, itemId);
   if (index === -1)
-    throw new Error(`Item with ID:${itemId} doesn't exist`);
+    throw new Error(`User with ID:${itemId} doesn't exist`);
   else return users[index];
 }
 
@@ -80,7 +80,7 @@ export async function getProductByID(itemId) {
   let products = itemArray.products;
   let index = findProduct(products, itemId);
   if (index === -1)
-    throw new Error(`Item with ID:${itemId} doesn't exist`);
+    throw new Error(`Product with ID:${itemId} doesn't exist`);
   else return products[index];
 }
 
@@ -208,7 +208,7 @@ export async function putItemInBasket(email, item) {
   let users = itemArray.users;
   let index = findUser(users, email); // findIndex
   if (index === -1)
-    throw new Error(`Customer with ID:${email} doesn't exist`);
+    throw new Error(`User with ID:${email} doesn't exist`);
   else {
     console.log(item)
     users[index].basket.push(item);
@@ -222,7 +222,7 @@ export async function deleteItemFromBasket(email, item) {
   let users = itemArray.users;
   let index = findUser(users, email); // findIndex
   if (index === -1)
-    throw new Error(`Customer with ID:${email} doesn't exist`);
+    throw new Error(`User with ID:${email} doesn't exist`);
   else {
     let basket = users[index].basket;
     let indexToRemove = -1;
