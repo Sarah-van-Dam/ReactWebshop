@@ -52,9 +52,9 @@ const  ProductItem = (props: any) => {
           />
           </div>
           <div className="card-body">
-             <div onClick={() => history.push({pathname:`/products/${product.tags}`, state: {product: product.tags}})}>{product.name}</div>
-             <div className="product-brand">{product.name.split("-")[0] }</div>
-             <div className="product-price">{product.price}</div>
+             <div style={{fontWeight: 'bold'}} onClick={() => history.push({pathname:`/products/${product.tags}`, state: {product: product.tags}})}>{product.name}</div>
+             <div className="product-brand" style={{color: 'LightSeaGreen', fontWeight: 'bold'}}>{product.name.split("-")[0] }</div>
+             <div className="product-price" style={{fontWeight: 'bold'}}>{product.price}</div>
              <div>
              <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px", backgroundColor:"LightGreen", color:"black"}} onClick={() => addToBasket(product, false)}>Add to basket</button>
              <button className="btn btn-outline-primary" style={{margin:"3px 3px 3px 3px", backgroundColor:"LightSeaGreen", color:"black"}} onClick={() => addToBasket(product, true)}>Buy</button>

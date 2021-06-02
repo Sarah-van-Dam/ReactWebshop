@@ -49,7 +49,9 @@ export const Products = () => {
    }, [shopContext]);
    
 
-   
+   const isNoProducts = () : boolean => {
+      return products.length > 0;
+   }
 
  return (
     <Container>
@@ -63,13 +65,25 @@ export const Products = () => {
          <div>
             {loading ? (<LoadingBox></LoadingBox>)
             :
-               error? (<MessageBox variant="danger">{error}</MessageBox> )
+               error ? (<MessageBox variant="danger">{error}</MessageBox> )
             : (
-            <div className="row center">
-                  {products.map((product) => (
-                     <ProductItem key={product.tags} product={product}></ProductItem>
-                  ))}
-            </div> 
+               <div>
+               { (() => {
+                     if (isNoProducts()) { 
+                        return (
+                           <div className="row center">
+                              {products.map((product : Product) => (
+                                 <ProductItem key={product.tags} product={product}></ProductItem>
+                              ))}
+                           </div>)
+                     } else {
+                        return (
+                           <MessageBox variant="info">There was no products matching all filters.</MessageBox> 
+                        )
+                     }
+                  })()
+               }
+               </div>
             )}
          </div>
       </Row>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { addToBasketAPI } from '../../api/userAPI';
 import { getProductWithIdAPI } from "../../api/productAPI";
@@ -71,38 +71,41 @@ export const DetailedProduct = (props : any) => {
                error? (<MessageBox variant="danger">{error}</MessageBox> )
             : (
                <div>
-                  <div>
-                     <div style={{textAlign:"left"}}>
+                     <Row style={{textAlign:"left"}}>
                      <div onClick={()=> history.push("/products")}> <Button style={{ backgroundColor:"grey", margin:"8px 4px 8px 4px"}} className="primary block">Go to products</Button></div>
-                     </div>
-                     <div key={product?.tags} style={{display: "flex"}} className="row">
-                              <div className="column" style={{flex: "50%"}}>
+                     </Row>
+                     <Row key={product?.tags} style={{display: "flex"}} className="row">
+                              <Col className="column" style={{flex: "50%"}}>
                                  <img
                                     className="detailedProduct"
                                     src={`${product.img}`}
                                     alt={product.name}
                                  />
-                              </div>
+                              </Col>
 
-                              <div className="column" style={{flex: "50%"}}>
+                              <Col className="column" style={{flex: "50%"}}>
                                  <ul style={{listStyleType:"none"}}>
                                     <li style={{marginTop:"1rem"}}>
-                                       <h2>{product.name}</h2>
+                                       <h2 style={{fontWeight: 'bold'}}>{product.name}</h2>
+                                    </li>
+                                    <li>
+                                       <h3 className="product-brand" style={{color: 'LightSeaGreen', fontWeight: 'bold'}}>{product.name.split("-")[0] }</h3>
                                     </li>
                                     <li style={{marginTop:"1rem"}}>
-                                       <h3>{product.price}</h3>
+                                       <h4>{product.price}</h4>
                                     </li>
                                     <li style={{marginTop:"1rem"}}>
-                                       <h3>Description</h3>
-                                       <p>{product.description }</p>
-                                    </li>
-                                    <li style={{marginTop:"1rem"}}>
-                                       <Button className="primary block" onClick={addToBasket}>Add to basket</Button>
+                                       <Button className="primary block" style={{backgroundColor:"LightGreen", color:"black"}} onClick={addToBasket}>Add to basket</Button>
                                     </li>
                                  </ul>
-                              </div> 
-                        </div> 
-                     </div>
+                              </Col> 
+                     </Row>
+                     <Row>
+                        <h3>Description</h3>
+                     </Row>
+                     <Row>
+                        <div>{product.description }</div>
+                     </Row>
                   </div>
                )}
       </div>
