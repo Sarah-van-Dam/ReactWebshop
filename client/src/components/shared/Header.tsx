@@ -70,27 +70,25 @@ const setBrandFilterAndNavigate = (brand: string) => {
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        {//TODO: Navigate to products and clear filters
-                        }
                         <Nav.Link onClick={() => setEmptyFilterAndNavigate()}>Products</Nav.Link>
                         <NavDropdown title="Product Type" id="basic-nav-dropdown">
                             {
                                 productTypes?.types.map((item, idx) => (
-                                    <NavDropdown.Item onClick={() => setProductFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
+                                    <NavDropdown.Item key={idx} onClick={() => setProductFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
                                 ))
                             }
                         </NavDropdown>
                         <NavDropdown title="Skin Type" id="basic-nav-dropdown">
                             {
                                 skinTypes?.types.map((item, idx) => (
-                                    <NavDropdown.Item onClick={() => setSkinFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
+                                    <NavDropdown.Item key={idx} onClick={() => setSkinFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
                                 ))
                             }
                         </NavDropdown>
                         <NavDropdown title="Brands" id="basic-nav-dropdown">
                             {   
                                 brands?.types.map((item, idx) => (
-                                    <NavDropdown.Item onClick={() => setBrandFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
+                                    <NavDropdown.Item key={idx} onClick={() => setBrandFilterAndNavigate(item)}>{capitalizeEachWordInString(item)}</NavDropdown.Item>
                                 ))
                             }
                         </NavDropdown>

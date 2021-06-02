@@ -116,7 +116,9 @@ export async function postFilteredProducts(filterCategories) {
   let itemArray = await getAll();
   let products = [];
   let allProducts = itemArray.products;
-  if(filterCategories.categories[0].types.length === 0 && filterCategories.categories[1].types.length === 0 && filterCategories.categories[2].types.length === 0) {
+  if(filterCategories.categories[0].types.length === 0 
+    && filterCategories.categories[1].types.length === 0 
+    && filterCategories.categories[2].types.length === 0) {
     products = itemArray.products;
   } else {
     // Find products in each of the chosen subcategories
@@ -124,10 +126,10 @@ export async function postFilteredProducts(filterCategories) {
     let skinTypeProducts = [];
     let brandTypeProducts = [];
 
-    if(filterCategories.categories[1].types.length === 0) {
+    if(filterCategories.categories.find(c => c.Id === "producttype").types.length === 0) {
       productTypeProducts = itemArray.products;
     } else {
-      filterCategories.categories[1].types.forEach(subCat => {
+      filterCategories.categories.find(c => c.Id === "producttype").types.forEach(subCat => {
         //console.log(subCat);
         let temp = findProductsInCategory(allProducts, subCat)
         productTypeProducts = productTypeProducts.concat(temp)
@@ -137,10 +139,10 @@ export async function postFilteredProducts(filterCategories) {
     }
     //console.log(productTypeProducts);
 
-    if(filterCategories.categories[0].types.length === 0) {
+    if(filterCategories.categories.find(c => c.Id === "skintype").types.length === 0) {
       skinTypeProducts = itemArray.products;
     } else {
-      filterCategories.categories[0].types.forEach(subCat => {
+      filterCategories.categories.find(c => c.Id === "skintype").types.forEach(subCat => {
         //console.log(subCat)
         let temp = findProductsInCategory(allProducts, subCat)
         skinTypeProducts = skinTypeProducts.concat(temp)
@@ -149,10 +151,10 @@ export async function postFilteredProducts(filterCategories) {
       //console.log(skinTypeProducts);
     }
 
-    if(filterCategories.categories[2].types.length === 0) {
+    if(filterCategories.categories.find(c => c.Id === "brand").types.length === 0) {
       brandTypeProducts = itemArray.products;
     } else {
-      filterCategories.categories[2].types.forEach(subCat => {
+      filterCategories.categories.find(c => c.Id === "brand").types.forEach(subCat => {
         let temp = findProductsInCategory(allProducts, subCat)
         brandTypeProducts = brandTypeProducts.concat(temp)
       });

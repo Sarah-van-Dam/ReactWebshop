@@ -97,7 +97,7 @@ export function Login() {
       }
 
     const validatePassword = (value: string) : FormErrors =>{
-        if (password.length < 4) {
+        if (value.length < 4) {
           return {password: "The password must be longer than 4"};
         } 
         return {password: undefined};

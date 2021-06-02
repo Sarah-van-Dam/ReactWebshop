@@ -40,14 +40,14 @@ export const ShopContextProvider = (props : ContextPropType) => {
         })
     }, []);
 
-    useEffect(()=> {
-        console.log(user, "User context updated")
-    }, [user])
+    // useEffect(()=> {
+    //     console.log(user, "User context updated")
+    // }, [user])
 
     const updateCurrentUser = (newUser : User) => {
-        console.log(newUser);
+        ///console.log(newUser);
         updateUserState(() => newUser);
-        console.log(user)
+        //console.log(user)
     }
 
     const updateAnnoymousBasket = (basket : Product[]) => {

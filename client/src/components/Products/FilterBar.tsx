@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Category } from "../../api/Category";
 import { ShopContext } from '../../context/ShoppingContext';
+import { capitalizeEachWordInString } from '../../helpers/helperFunctions';
 
 const filterBarStyle = {
     display: 'flex',
@@ -17,10 +17,7 @@ const filterBarStyle = {
   throw(new Error("shopContext is undefined!"))
   
    // deconstruct context to get shop
-   const { categories } = shopContext
-   const [filter, updateFilter] = useState<Category[]>([{Id:"skintype", types: []}, {Id:"producttype", types: []}, {Id:"brand", types: []}]);
-
-
+   const { categories, filterCategories, setFilterCategories } = shopContext
 
    //  const filterProducts = (event: React.ChangeEvent) => {
    //     if()
@@ -39,6 +36,35 @@ const filterBarStyle = {
    //    return undefined
    //  }
  
+   let productTypes = categories.find(c => c.Id === "producttype");
+   let skinTypes = categories.find(c => c.Id === "skintype");
+   let brands = categories.find(c => c.Id === "brand");
+
+    const onChangeFilter = (checked : boolean, type: string, id: string) => {
+      let updatedFilter = filterCategories.map((item, idx) => item);
+         if(checked){
+            updatedFilter.find(c => c.Id === id )?.types.push(type);
+            setFilterCategories(updatedFilter);
+         } else {
+            let types = updatedFilter.find(c => c.Id === id)?.types;
+            if( types !== undefined) {
+               let newTypes : string[] = types.filter(item => item !== type);
+               updatedFilter.map(item => item.Id === id ? item.types = newTypes : item.types)
+               setFilterCategories(updatedFilter);
+            }
+         }
+    }
+
+    const isTypeChecked = (type: string, id: string) => {
+       let isInFilteredCategories = filterCategories.find(item => item.Id === id)?.types.includes(type);
+       if(isInFilteredCategories) {
+          return true;
+       } else {
+          return false;
+       }
+    }
+
+
  
     return (
          <div style={filterBarStyle} >
@@ -46,28 +72,59 @@ const filterBarStyle = {
                 <Row>
                   <Col style={{width:"80%"}}>
                   <h5>Product Type:</h5>
-                  <div>Cleanser: <input type="checkbox" name="cleanser" id="cleanser"  /></div>
-                  <div>Toner: <input type="checkbox" name="toner" id="toner" /></div>
-                  <div>Serum: <input type="checkbox" name="serum" id="serum" /></div>
-                  <div>Mask: <input type="checkbox" name="mask" id="mask" /></div>
-                  <div>Cream: <input type="checkbox" name="cream" id="cream" /></div>
+                  {
+                     productTypes?.types.map((item, idx) => (
+                        <div key={idx}>
+                        { (() => 
+                           {
+                              if (isTypeChecked(item, "producttype")) {
+                                 return (<div key={item +"1"}>{capitalizeEachWordInString(item)}: <input checked type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "producttype")}/></div>)
+                              } else {
+                                 return (<div key={item+"2"}>{capitalizeEachWordInString(item)}: <input type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "producttype")}/></div>)
+                              }
+                           })()
+                        }
+                        </div>
+                     ))
+                  }
                   </Col>
                   <Col style={{width:"80%"}}>
                   <h5>Skin Type:</h5>
-                  <div>Dry: <input type="checkbox" name="dry" id="dry" /></div>
-                  <div>Oily: <input type="checkbox" name="oily" id="oily" /></div>
-                  <div>Combined: <input type="checkbox" name="combined" id="combined" /></div>
-                  <div>Sensitive: <input type="checkbox" name="sensitive" id="sensitive" /></div>
+                  {
+                     skinTypes?.types.map((item, idx) => (
+                        <div key={idx}>
+                        { (() => 
+                           {
+                              if (isTypeChecked(item, "skintype")) {
+                                 return (<div key={item +"1"}>{capitalizeEachWordInString(item)}: <input checked type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "skintype")}/></div>)
+                              } else {
+                                 return (<div key={item+"2"}>{capitalizeEachWordInString(item)}: <input type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "skintype")}/></div>)
+                              }
+                           })()
+                        }
+                        </div>
+                        ))
+                  }
                   </Col>
                   <Col style={{width:"80%"}}>
                   <h5>Brand:</h5>
-                  <div>CosRX: <input type="checkbox" name="cosrx" id="cosrx" /></div>
-                  <div>Dr. Jart+: <input type="checkbox" name="dr. jart+" id="dr. jart+" /></div>
-                  <div>Mizon: <input type="checkbox" name="mizon" id="mizon" /></div>
-                  <div>Nature Republic: <input type="checkbox" name="nature republic" id="nature republic" /></div>
+                  {
+                     brands?.types.map((item, idx) => (
+                        <div key={idx}>
+                        { (() => 
+                           {
+                              if (isTypeChecked(item, "brand")) {
+                                 return (<div key={item +"1"}>{capitalizeEachWordInString(item)}: <input checked type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "brand")}/></div>)
+                              } else {
+                                 return (<div key={item+"2"}>{capitalizeEachWordInString(item)}: <input type="checkbox" name="item" id="item" onChange={(event) => onChangeFilter(event.target.checked, item, "brand")}/></div>)
+                              }
+                           })()
+                        }
+                        </div>
+                        ))
+                  }
                   </Col>
                 </Row>
-
                </div>
                 
          </div>

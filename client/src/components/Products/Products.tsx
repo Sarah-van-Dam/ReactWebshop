@@ -46,7 +46,7 @@ export const Products = () => {
             setLoading(false);
          })
       }
-   }, [shopContext.filterCategories]);
+   }, [shopContext]);
    
 
    
