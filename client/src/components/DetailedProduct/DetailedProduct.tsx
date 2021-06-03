@@ -3,10 +3,10 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { addToBasketAPI } from '../../api/userAPI';
 import { getProductWithIdAPI } from "../../api/productAPI";
-import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
 import LoadingBox from '../shared/LoadingBox';
 import MessageBox from '../shared/MessageBox';
+import { Product } from '../../api/types/Product';
 
 export const DetailedProduct = (props : any) => {
 
@@ -16,7 +16,7 @@ export const DetailedProduct = (props : any) => {
   throw(new Error("ShopContext is undefined!"))
   
    // deconstruct context to get quiz
-   const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext
+   const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext
 
    const history = useHistory()
 
@@ -45,7 +45,7 @@ export const DetailedProduct = (props : any) => {
       } 
       else 
       {
-            updateAnnoymousBasket(annonymousBasket.concat([product]));
+            updateAnoymousBasket(anonymousBasket.concat([product]));
       }
    }
       

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useHistory} from 'react-router-dom';
+import { Product } from '../../api/types/Product';
 import { removeFromBasketAPI } from '../../api/userAPI';
-import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
 import MessageBox from '../shared/MessageBox';
 
@@ -15,7 +15,7 @@ export const Basket = () => {
       throw(new Error("ShopContext is undefined!"))
       
    // deconstruct context to get shop
-   const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext;
+   const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext;
 
    const [basket, updateBasket] = useState<Product[]>([]);
    //const [sum, updateSum] = useState<number>(0);
@@ -28,14 +28,14 @@ export const Basket = () => {
     if(isLoggedIn) {
       updateBasket(user.basket)
     } else {
-      updateBasket(annonymousBasket);
+      updateBasket(anonymousBasket);
     } 
     // let runningSum = 0;
     // basket.forEach((item) => {
     //   runningSum = runningSum + parseInt(item.price.split(" ")[0]);
     // })
     //updateSum(runningSum)
-   }, [user.basket, annonymousBasket, isLoggedIn])
+   }, [user.basket, anonymousBasket, isLoggedIn])
     
    const removeFromBasket = (product: Product) => {
     let updatedBasket = basket.map((item, idx) => item);
@@ -61,7 +61,7 @@ export const Basket = () => {
          }
       })
     } else {
-      updateAnnoymousBasket(updatedBasket)
+      updateAnoymousBasket(updatedBasket)
       updateBasket(updatedBasket)
       //updateSum((prev) => prev - parseInt(product.price.split(" ")[0]))
     }
@@ -148,65 +148,3 @@ export const Basket = () => {
  )};
 
 
-
-//  <table className="table table-hover bg-white">
-//  <thead>
-//      <tr>
-//        <th>Product</th>
-//        <th>Price</th>
-//        <th>Action</th>
-//      </tr>
-//  </thead>
-//  <tbody id="productList" className="products">
-//  {basket.length ? (
-//    <div className="column columns is-multiline">
-//      {basket.map(product => (
-//          <div key={product.tags} className=" column">
-//          <div className="box">
-//            <div className="media">
-//              <div className="media-left" >
-//                <figure className="image is-64x64">
-//                  <img
-//                  className="medium"
-//                    src={product.img}
-//                    alt={product.name}
-//                  />
-//                </figure>
-//              </div>
-//              <div className="media-content">
-//                <b style={{ textTransform: "capitalize" }}>
-//                  {product.name}{" "}
-//                </b>
-//                <small>{product.price}</small>
-//              </div>
-//              <div
-//                className="media-right"
-//                onClick={() => removeFromBasket(product)}>
-//                <span className="delete is-large"></span>
-//              </div>
-//            </div>
-//          </div>
-//        </div>
-//        ))}
-//        <div className="column is-12 is-clearfix">
-//          <br />
-//        </div>
-//      </div>
-//    ) : (
-//      <div className="column">
-//        <div className="title has-text-grey-light">No item in cart!</div>
-//      </div>
-//    )}
-//  </tbody>
-//  <tfoot>
-//  <tr>
-//    <th>Total</th>
-//    <th></th>
-//  </tr>
-//  <tr>
-//    <td><Link to={"/home"}> <button className="btn btn-warning text-white"><i className="fa fa-angle-left"></i> Continue Shopping</button></Link></td>
-//    <td className="hidden-xs text-center" style={{width:"10%"}}><strong id="totalPrice"></strong></td>
-//    <td><button className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></button></td>
-//  </tr>
-// </tfoot>
-// </table>

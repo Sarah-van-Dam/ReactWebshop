@@ -1,4 +1,4 @@
-import { Category } from "./Category";
+import { Category } from "./types/Category";
 import { rootURL } from "./userAPI";
 
 // call .get("/products/", getProducts);

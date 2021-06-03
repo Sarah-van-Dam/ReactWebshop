@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { getProductsAPI, postFilteredProductsAPI } from "../../api/productAPI";
-import { Product } from "../../api/Product";
 import { ShopContext } from '../../context/ShoppingContext';
-import FilterBar from './FilterBar';
 import MessageBox from '../shared/MessageBox';
-import ProductItem from './ProductItem';
 import LoadingBox from '../shared/LoadingBox';
+import { Product } from '../../api/types/Product';
+import { FilterBar } from './FilterBar';
+import { ProductItem } from './ProductItem';
 
 
 export const Products = () => {

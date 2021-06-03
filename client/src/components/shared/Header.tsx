@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
-import { Category } from '../../api/Category';
+import { Category } from '../../api/types/Category';
 import { ShopContext } from '../../context/ShoppingContext';
 import { capitalizeEachWordInString } from '../../helpers/helperFunctions';
 import { HeaderStyle } from '../../styles/styles';

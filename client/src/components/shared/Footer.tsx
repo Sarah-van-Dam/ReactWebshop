@@ -1,21 +1,9 @@
-import styled from 'styled-components';
-
-const FullRowStyle = styled.div`
-.row-full{
-    width: 100vw;
-    position: relative;
-    margin-left: -50vw;
-    height: 120px;
-    margin-top: 100px;
-    left: 50%;
-   }
-`;
-
+import { FullRowStyle } from '../../styles/styles';
 
 export const Footer = () => {
  return (
      <FullRowStyle>
-        <footer className="bg-light text-center text-black" >
+        <footer className="bg-light text-center text-black" style={{position:"sticky", bottom:"0"}} >
             <div className="footer" style={{marginBlockStart:"50px", paddingTop:"30px"}}>
                     <section className="text-center" style={{paddingBottom:"10px"}}>
                         <p>

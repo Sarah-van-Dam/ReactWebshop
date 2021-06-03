@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { getCategoriesAPI } from "../api/categoryAPI";
-import { Category } from "../api/Category";
-import { Product } from "../api/Product";
+import { Category } from "../api/types/Category";
+import { Product } from "../api/types/Product";
 import { User } from "../api/types/User";
 
 export type ShopContextType = {
@@ -10,8 +10,8 @@ export type ShopContextType = {
     user: User;
     updateCurrentUser: (user : User) => void;
     categories: Category[];
-    annonymousBasket: Product[];
-    updateAnnoymousBasket: (basket : Product[]) => void;
+    anonymousBasket: Product[];
+    updateAnoymousBasket: (basket : Product[]) => void;
     filterCategories: Category[];
     setFilterCategories: (categories: Category[]) => void;
     isFilterSet: () => boolean;
@@ -27,7 +27,7 @@ export const ShopContext = React.createContext<ShopContextType | undefined>(unde
 export const ShopContextProvider = (props : ContextPropType) => {
     const [categories, setCategoriesState] = useState<Category[]>([]);
     const [user, updateUserState] = useState<User>({customerName: "", email: "", password: "", basket: []})
-    const [annonymousBasket, updateAnnoymousBasketState] = useState<Product[]>([])
+    const [anonymousBasket, updateAnoymousBasketState] = useState<Product[]>([])
     const [isLoggedIn, updateLoggedInState] = useState<boolean>(false)
     const [filterCategories, setFilterCategories] = useState<Category[]>([{Id: "skintype", types:[]}, {Id: "producttype", types:[]}, {Id: "brand", types:[]} ]);
 
@@ -50,8 +50,8 @@ export const ShopContextProvider = (props : ContextPropType) => {
         //console.log(user)
     }
 
-    const updateAnnoymousBasket = (basket : Product[]) => {
-        updateAnnoymousBasketState(basket);
+    const updateAnoymousBasket = (basket : Product[]) => {
+        updateAnoymousBasketState(basket);
     }
     const updateLoggedIn = (loggedIn : boolean) => {
         updateLoggedInState(loggedIn);
@@ -63,7 +63,7 @@ export const ShopContextProvider = (props : ContextPropType) => {
 
     return (
         <ShopContext.Provider value= {{isLoggedIn, updateLoggedIn, user, updateCurrentUser, 
-            categories, annonymousBasket, updateAnnoymousBasket, filterCategories, setFilterCategories, isFilterSet}}>
+            categories, anonymousBasket: anonymousBasket, updateAnoymousBasket: updateAnoymousBasket, filterCategories, setFilterCategories, isFilterSet}}>
                 {props.children}
         </ShopContext.Provider>
     )

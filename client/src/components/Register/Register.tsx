@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import { registerUserAPI } from '../../api/userAPI';
-
-
-const LoginStyle = styled.div`
-@media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      max-width: 420px;
-    }
-  }
-`;
+import { FormStyle } from '../../styles/styles';
 
  type FormErrors = {
     userFirstName?: string;
@@ -114,7 +100,7 @@ export const Register = () => {
    }
  
    const validateEmail = (value: string) : FormErrors => {
-       const regEmail : RegExp = /^[a-zA-z]+@[a-z]+.[a-z]+$/;
+       const regEmail : RegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;;
        if(!regEmail.test(value)) {
          return {email: "Not a valid email"};
        }
@@ -152,7 +138,7 @@ export const Register = () => {
     }   
 
  return (
-   <LoginStyle>
+   <FormStyle>
    <Container className="justify-content-center">
        <div className="Login text-left" >
            <Form onSubmit={handleSubmit} >
@@ -208,17 +194,17 @@ export const Register = () => {
                />
                {errors.confirmedPassword ? <span style={{color: "red"}}>{errors.confirmedPassword}</span> : null}
            </Form.Group>
-           { !validation && <p style={{color:"red"}}>The information you gave was already in the database</p>}
-           <Button block size="lg" type="submit" disabled={!validateForm()}>
-               Login
+           { !validation && <p style={{color:"red"}}>Looks like there’s already an account with this e-mail address.</p>}
+           <Button block size="lg" type="submit" disabled={!validateForm()} onClick={handleSubmit}>
+            Register
            </Button>
-           <Button block size="lg" className="btn-secondary" type="cancel" onClick={ () => history.goBack()}>
+           <Button block size="lg" className="btn-secondary" type="cancel" onClick={ () => history.push("/")}>
                Cancel
            </Button>
            </Form>
        </div>
    </Container>
-   </LoginStyle>
+   </FormStyle>
  );
 };
 

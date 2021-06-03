@@ -9,7 +9,7 @@ const filterBarStyle = {
  
   };
  
- const FilterBar = () => {
+export const FilterBar = () => {
    
    const  shopContext = useContext(ShopContext)
    // check conext
@@ -130,5 +130,3 @@ const filterBarStyle = {
          </div>
     )
  }
-
-export default FilterBar;

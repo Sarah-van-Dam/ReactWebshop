@@ -1,4 +1,4 @@
-import { Product } from "./Product";
+import { Product } from "./types/Product";
 
 // Root URL
 export const rootURL = "http://localhost:5000/"

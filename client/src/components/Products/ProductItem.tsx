@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Product } from '../../api/types/Product';
 import { addToBasketAPI } from '../../api/userAPI';
-import { Product } from '../../api/Product';
 import { ShopContext } from '../../context/ShoppingContext';
 
-const  ProductItem = (props: any) => {
+export const  ProductItem = (props: any) => {
 
    const  shopContext = useContext(ShopContext)
    // check context
@@ -12,7 +12,7 @@ const  ProductItem = (props: any) => {
   throw(new Error("ShopContext is undefined!"))
   
    // deconstruct context to get shop
-   const { isLoggedIn, user, updateCurrentUser, annonymousBasket, updateAnnoymousBasket } = shopContext
+   const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext
 
    const history = useHistory();
 
@@ -33,7 +33,7 @@ const  ProductItem = (props: any) => {
                return false;
             }
          })} else {
-            updateAnnoymousBasket(annonymousBasket.concat([product]))
+            updateAnoymousBasket(anonymousBasket.concat([product]))
          }
          if(pushToBasket) {
             history.push("/basket");
@@ -65,5 +65,3 @@ const  ProductItem = (props: any) => {
        </div>
     );
  }
-
-export default ProductItem;

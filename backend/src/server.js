@@ -10,7 +10,7 @@ app.use(express.json());
 // paths handled by ecommerceRouter
 app.use(ecommerceRouter)
 
-app.get("/client/pages", (req, res) => res.sendFile("index.html", {root: __dirname }));
+//app.get("/client/pages", (req, res) => res.sendFile("index.html", {root: __dirname }));
 app.get("/", (req, res) => res.send("Server is ready"));
 
 

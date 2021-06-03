@@ -1,26 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
-import styled from "styled-components";
+import { Form, Button, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { checkLoginAPI, getUserAPI } from "../../api/userAPI";
 import { ShopContext } from '../../context/ShoppingContext';
 import { User } from "../../api/types/User";
-
-
-const LoginStyle = styled.div`
-@media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      max-width: 420px;
-    }
-  }
-`;
+import { FormStyle } from "../../styles/styles";
   
   type FormErrors = {
     email?: string;
@@ -83,7 +67,7 @@ export function Login() {
     }
   
     const validateEmail = (value: string) : FormErrors => {
-        const regEmail : RegExp = /^[a-zA-z]+@[a-z]+.[a-z]+$/;
+        const regEmail : RegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!regEmail.test(value)) {
           return {email: "Not a valid email"};
         }
@@ -104,7 +88,7 @@ export function Login() {
       }
 
     return (
-        <LoginStyle>
+        <FormStyle>
         <Container className="justify-content-center">
             <div className="Login text-left" >
                 <Form onSubmit={handleSubmit} >
@@ -132,16 +116,16 @@ export function Login() {
                     {errors.password ? <span style={{color: "red"}}>{errors.password}</span> : null}
                 </Form.Group>
                 { !validation && <p style={{color:"red"}}>Your login credentials could not be verified, please try again.</p>}
-                <Button block size="lg" type="submit" disabled={!validateForm()}>
+                <Button block size="lg" type="submit" disabled={!validateForm()} onClick={handleSubmit}>
                     Login
                 </Button>
-                <Button block size="lg" className="btn-secondary" type="cancel" onClick={ () => history.goBack()}>
+                <Button block size="lg" className="btn-secondary" type="cancel" onClick={ () => history.push("/")}>
                     Cancel
                 </Button>
                 </Form>
             </div>
         </Container>
-        </LoginStyle>
+        </FormStyle>
     );
   }
 
