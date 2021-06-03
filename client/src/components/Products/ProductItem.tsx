@@ -11,7 +11,7 @@ export const  ProductItem = (props: any) => {
   if (!shopContext)
   throw(new Error("ShopContext is undefined!"))
   
-   // deconstruct context to get shop
+   // deconstruct context 
    const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext
 
    const history = useHistory();

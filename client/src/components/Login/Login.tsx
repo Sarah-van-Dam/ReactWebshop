@@ -17,9 +17,9 @@ export function Login() {
     const  shopContext = useContext(ShopContext)
     // check conext
     if (!shopContext)
-    throw(new Error("QuizContext is undefined!"))
+    throw(new Error("ShopContext is undefined!"))
    
-    // deconstruct context to get quiz
+    // deconstruct context
     const { isLoggedIn, updateCurrentUser, updateLoggedIn } = shopContext
 
     const [email, setEmail] = useState("");
@@ -34,8 +34,6 @@ export function Login() {
   
     useEffect(()=> {
       if(isLoggedIn) {
-        // console.log(shopContext?.user)
-        // console.log(shopContext?.categories)
         history.push('/home');
       }
     }, [isLoggedIn])

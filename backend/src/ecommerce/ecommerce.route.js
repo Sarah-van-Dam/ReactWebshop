@@ -1,6 +1,5 @@
 import express from 'express'
 import {getBasket, getCategories, getCategoryById, getProductById, getProductByCategory, getProducts, postFilteredProducts, getUser, postCreateUser, postLoginUser, putItemInBasket, deleteItemFromBasket} from './ecommerce.controller.js'
-//var {getBasket, getCategories, getCategoryById, getProductById, getProducts, getUser, postCreateUser, postLoginUser, updateBasket }  = require('./ecommerce.controller');
 import cors from "cors"
 
 
@@ -15,8 +14,6 @@ ecommerceRouter.use(express.json())
 ecommerceRouter.post("/users", postCreateUser);
 
 ecommerceRouter.get("/users/:email", getUser);
-
-//ecommerceRouter.post("/users/:email/basket", postBasket);
 
 ecommerceRouter.put("/users/:email/basket", putItemInBasket);
 

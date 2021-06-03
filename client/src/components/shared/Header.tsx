@@ -12,7 +12,7 @@ export const Header = () => {
   if (!shopContext)
      throw(new Error("ShopContext is undefined!"))
      
-  // deconstruct context to get shop
+  // deconstruct context 
   const { isLoggedIn, updateLoggedIn, updateCurrentUser } = shopContext;
 
   const history = useHistory();
@@ -39,7 +39,6 @@ export const Header = () => {
 
   const setProductFilterAndNavigate = (productType: string) => {
       let newFilter : Category[] = clearFilter();
-      // let updatedProductFilter = shopContext.filterCategories.map((item, idx) => item);
       newFilter.find(c => c.Id === "producttype" )?.types.push(productType);
       shopContext.setFilterCategories(newFilter);
       history.push("/products");
@@ -47,7 +46,6 @@ export const Header = () => {
 
   const setSkinFilterAndNavigate = (skinType: string) => {
     let newFilter : Category[] = clearFilter();
-    // let updatedProductFilter = shopContext.filterCategories.map((item, idx) => item);
     newFilter.find(c => c.Id === "skintype" )?.types.push(skinType);
     shopContext.setFilterCategories(newFilter);
     history.push("/products"); 
@@ -55,7 +53,6 @@ export const Header = () => {
 
 const setBrandFilterAndNavigate = (brand: string) => {
     let newFilter : Category[] = clearFilter();
-    // let updatedProductFilter = shopContext.filterCategories.map((item, idx) => item);
     newFilter.find(c => c.Id === "brand" )?.types.push(brand);
     shopContext.setFilterCategories(newFilter);
     history.push("/products");

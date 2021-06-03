@@ -15,11 +15,9 @@ export const Products = () => {
   if (!shopContext)
   throw(new Error("ShopContext is undefined!"))
   
-   // deconstruct context to get shop
-
    const [products, setProducts] = useState<Product[]>([]);
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(false);
+   const [error, setError] = useState("");
 
    
    useEffect( () => {
@@ -28,7 +26,6 @@ export const Products = () => {
          if(!shopContext.isFilterSet()){
          getProductsAPI()
          .then((data)=> {
-            //console.log(data)
             setLoading(false);
             setProducts(data);
          }).catch((e) => {
@@ -65,7 +62,7 @@ export const Products = () => {
          <div>
             {loading ? (<LoadingBox></LoadingBox>)
             :
-               error ? (<MessageBox variant="danger">{error}</MessageBox> )
+               error.length > 0 ? (<MessageBox variant="danger">{error}</MessageBox> )
             : (
                <div>
                { (() => {

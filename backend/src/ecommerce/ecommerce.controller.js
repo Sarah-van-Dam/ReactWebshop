@@ -38,7 +38,7 @@ export async function getUser(req, res) {
   try {
     let email = req.params.email;
     let user = await model.getUserByID(email);
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -96,8 +96,7 @@ export async function getBasket(req, res) {
   try {
     let email = req.params.email;
     let user = await model.getUserByID(email);
-    //er ikke sikker på om man får basket på følgende måde:
-    res.json(user.basket);
+    res.status(200).json(user.basket);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -109,8 +108,7 @@ export async function getBasket(req, res) {
 export async function getProducts(req, res) {
   try {
     let products = await model.getProducts();
-    //console.log(products)
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -122,8 +120,7 @@ export async function postFilteredProducts(req, res) {
   try {
     let categories = req.body;
     let products = await model.postFilteredProducts(categories);
-    //console.log(products)
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -135,7 +132,7 @@ export async function getProductById(req, res) {
   try {
     let id = req.params.tags;
     let product = await model.getProductByID(id);
-    res.json(product);
+    res.status(200).json(product);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -147,7 +144,7 @@ export async function getProductByCategory(req, res) {
   try {
     let id = req.params.categoryId;
     let products = await model.getProductByCategory(id);
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -158,7 +155,7 @@ export async function getProductByCategory(req, res) {
 export async function getCategories(req, res) {
   try {
     let categories = await model.getCategories();
-    res.json(categories);
+    res.status(200).json(categories);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },
@@ -170,7 +167,7 @@ export async function getCategoryById(req, res) {
   try {
     let id = req.params.categoryId;
     let category = await model.getCategoryByID(id);
-    res.json(category);
+    res.status(200).json(category);
   } catch (error) {
     res.status(404).json({
       error: { message: error.message },

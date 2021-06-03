@@ -14,28 +14,11 @@ export const FilterBar = () => {
    const  shopContext = useContext(ShopContext)
    // check conext
   if (!shopContext)
-  throw(new Error("shopContext is undefined!"))
+  throw(new Error("ShopContext is undefined!"))
   
-   // deconstruct context to get shop
+   // deconstruct context
    const { categories, filterCategories, setFilterCategories } = shopContext
 
-   //  const filterProducts = (event: React.ChangeEvent) => {
-   //     if()
-   //     let filterType = event.target.id;
-   //     console.log(filterType)
-   //     let temp = []
-   //    // filter.forEach(element => {
-   //    //    let currentTypes = []
-   //    //    if(element.Id === filterId) {
-   //    //       currentTypes.push
-   //    //    }
-   //    //    temp.push({Id:`${element.Id}`, types: []})
-   //    // });
-   //    // postFilteredProductsAPI(categories : Category[])
- 
-   //    return undefined
-   //  }
- 
    let productTypes = categories.find(c => c.Id === "producttype");
    let skinTypes = categories.find(c => c.Id === "skintype");
    let brands = categories.find(c => c.Id === "brand");

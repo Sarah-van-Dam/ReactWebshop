@@ -84,23 +84,15 @@ export async function getProductByID(itemId) {
   else return products[index];
 }
 
-// get produt by category
+// get product by category
 export async function getProductByCategory(category) {
   let itemArray = await getAll();
   let products = itemArray.products;
-  //let index = findCategory(itemArray.categories, category);
-  //let subCategories = itemArray.categories[index].types;
   let filteredProducts = findProductsInCategory(products, category);
   if (filteredProducts.length === 0)
     throw new Error(`There is no products in category:${category}`);
   else return filteredProducts;
 }
-
-
-//"categories":
-//[{"Id":"skintype","types":["combined","dry","oily","sensitive"]},
-//{"Id":"producttype","types":["cleanser","toner","serum","mask","cream"]},
-//{"Id":"brand","types":["cosrx","mizon","dr. jart+","nature republic"]}]
 
 // get products
 export async function getProducts() {
@@ -130,25 +122,20 @@ export async function postFilteredProducts(filterCategories) {
       productTypeProducts = itemArray.products;
     } else {
       filterCategories.categories.find(c => c.Id === "producttype").types.forEach(subCat => {
-        //console.log(subCat);
         let temp = findProductsInCategory(allProducts, subCat)
         productTypeProducts = productTypeProducts.concat(temp)
-        //console.log(productTypeProducts);
       });
       productTypeProducts = [...new Set(productTypeProducts)]
     }
-    //console.log(productTypeProducts);
 
     if(filterCategories.categories.find(c => c.Id === "skintype").types.length === 0) {
       skinTypeProducts = itemArray.products;
     } else {
       filterCategories.categories.find(c => c.Id === "skintype").types.forEach(subCat => {
-        //console.log(subCat)
         let temp = findProductsInCategory(allProducts, subCat)
         skinTypeProducts = skinTypeProducts.concat(temp)
       });
       skinTypeProducts = [...new Set(skinTypeProducts)]
-      //console.log(skinTypeProducts);
     }
 
     if(filterCategories.categories.find(c => c.Id === "brand").types.length === 0) {
@@ -159,7 +146,6 @@ export async function postFilteredProducts(filterCategories) {
         brandTypeProducts = brandTypeProducts.concat(temp)
       });
       brandTypeProducts = [...new Set(brandTypeProducts)]
-      //console.log(brandTypeProducts);
     }
 
     let temp = intersection(productTypeProducts, skinTypeProducts);
@@ -188,20 +174,6 @@ export async function addUser(newUser) {
     users.push(newUser);
   await save(itemArray);
 }
-
-// // update existing item
-// export async function updateBasketOfUser(email, newBasket) {
-//   let itemArray = await getAll();
-//   let users = itemArray.users;
-//   let index = findUser(users, email); // findIndex
-//   if (index === -1)
-//     throw new Error(`Customer with ID:${email} doesn't exist`);
-//   else {
-//     users[index].basket = newBasket.basket;
-//     await save(itemArray);
-//   }
-// }
-
 
 // update existing item
 export async function putItemInBasket(email, item) {

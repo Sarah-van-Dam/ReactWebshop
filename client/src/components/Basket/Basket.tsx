@@ -14,11 +14,10 @@ export const Basket = () => {
    if (!shopContext)
       throw(new Error("ShopContext is undefined!"))
       
-   // deconstruct context to get shop
+   // deconstruct context
    const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext;
 
    const [basket, updateBasket] = useState<Product[]>([]);
-   //const [sum, updateSum] = useState<number>(0);
 
    const [error, setError] = useState("");
 
@@ -30,11 +29,6 @@ export const Basket = () => {
     } else {
       updateBasket(anonymousBasket);
     } 
-    // let runningSum = 0;
-    // basket.forEach((item) => {
-    //   runningSum = runningSum + parseInt(item.price.split(" ")[0]);
-    // })
-    //updateSum(runningSum)
    }, [user.basket, anonymousBasket, isLoggedIn])
     
    const removeFromBasket = (product: Product) => {
@@ -53,7 +47,6 @@ export const Basket = () => {
             }
             updateCurrentUser(newUser)
             updateBasket(updatedBasket)
-            //updateSum((prev) => prev - parseInt(product.price.split(" ")[0]))
          } else {
             // element could not be added
             setError(`Product ${product.name} could not be removed`);
@@ -63,7 +56,6 @@ export const Basket = () => {
     } else {
       updateAnoymousBasket(updatedBasket)
       updateBasket(updatedBasket)
-      //updateSum((prev) => prev - parseInt(product.price.split(" ")[0]))
     }
    }
 
@@ -85,9 +77,7 @@ export const Basket = () => {
               <h6 style={{verticalAlign:"center"}}>{item.name}</h6>
             </Col>
             <Col className="col">
-              <h6>{item.price}
-              {/* {updateSum((prev) => prev + parseInt(item.price.split(" ")[0]))} */}
-              </h6>
+              <h6>{item.price}</h6>
             </Col>
             <Col className="col">
               <button
@@ -113,9 +103,7 @@ export const Basket = () => {
               <Row>
                 <Col></Col>
                 <Col></Col>
-                <Col> 
-                {/* <div>Total: {sum}</div> */}
-                </Col>
+                <Col></Col>
                 <Col><button className="btn btn-success">Checkout <i className="fa fa-angle-right"></i></button></Col>
               </Row>
             </ul>

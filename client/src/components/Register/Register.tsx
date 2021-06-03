@@ -34,8 +34,6 @@ export const Register = () => {
  
    useEffect(()=> {
     if(didRegister) {
-      // console.log(shopContext?.user)
-      // console.log(shopContext?.categories)
       history.push('/home');
     }
   }, [didRegister])

@@ -15,7 +15,7 @@ export const DetailedProduct = (props : any) => {
   if (!shopContext)
   throw(new Error("ShopContext is undefined!"))
   
-   // deconstruct context to get quiz
+   // deconstruct context
    const { isLoggedIn, user, updateCurrentUser, anonymousBasket, updateAnoymousBasket } = shopContext
 
    const history = useHistory()
@@ -24,7 +24,7 @@ export const DetailedProduct = (props : any) => {
 
    const [product, setProduct] = useState<Product>({name: "", price: "", tags: "", img: "", description: ""});
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(false);
+   const [error, setError] = useState("");
 
    const addToBasket = () => {
       if( isLoggedIn ){
@@ -40,6 +40,7 @@ export const DetailedProduct = (props : any) => {
                updateCurrentUser(newUser)
             } else {
                // element could not be added
+               setError(`Product ${product.name} could not be added`);
             }
          })
       } 
@@ -56,7 +57,6 @@ export const DetailedProduct = (props : any) => {
       .then((data)=> {
          setLoading(false);
          setProduct(data);
-         // console.log(product)
       }).catch((e) => {
          setError(e.message);
          setLoading(false);
@@ -68,7 +68,7 @@ export const DetailedProduct = (props : any) => {
       <div>
             {loading ? (<LoadingBox></LoadingBox>)
             :
-               error? (<MessageBox variant="danger">{error}</MessageBox> )
+               error.length > 0? (<MessageBox variant="danger">{error}</MessageBox> )
             : (
                <div>
                      <Row style={{textAlign:"left"}}>

@@ -9,11 +9,7 @@ import { Product } from '../../api/types/Product';
 
 export const Home = () => {
 
-   // const newProducts = getNewProducts();
-   // const discountProducts = getDiscountProducts();
-   
    const  shopContext = useContext(ShopContext)
-   //console.log(shopContext)
    // check conext
    if (!shopContext)
    throw(new Error("ShopContext is undefined!"))
@@ -27,14 +23,12 @@ export const Home = () => {
    useEffect( () => {
       getProductsByCategoryAPI("new")
       .then((data)=> {
-         //console.log(data)
          setNewProducts(data);
       }).catch((e) => {
       })
 
       getProductsByCategoryAPI("discount")
       .then((data)=> {
-         //console.log(data)
          setDiscountProducts(data);
       }).catch((e) => {
       })
@@ -46,7 +40,6 @@ export const Home = () => {
          (<h1 style={{textAlign:"left"}}>Welcome to Pibu Care</h1>) : 
          (<h1 style={{textAlign:"left"}}>Welcome to Pibu Care, {user.customerName}</h1>)
       }
-      {/* {console.log(shopContext)} */}
       <h2 style={{marginTop:"50px", marginBottom:"20px"}}> New Products </h2>
       <Carousel>
          {newProducts.map((el) => (
